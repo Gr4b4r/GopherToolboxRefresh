@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GopherToolboxRefresh.Models.Order>
+
+@{
+    ViewData["Title"] = "Zarządzanie podjętymi zadaniami";
+}
+
+<h1>Zarządzanie podjętymi zadaniami</h1>
+
+@if (!Model.Any())
+{
+        <p>Brak podjętych zadań.</p>
+}
+else
+{
+        <div class="row">
+        @foreach (var item in Model)
+        {
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Quest.Name</h5>
+                                <p class="card-text">
+                                    <strong>Osoba podejmująca:</strong> @item.User?.Email<br>
+                                    <strong>Data podjęcia:</strong> @item.OrderDate.ToShortDateString()<br>
+                                    <strong>Adres:</strong> @item.Quest.Address<br>
+                                    <strong>Data rozpoczęcia zadania:</strong> @item.QuestDateStart.ToShortDateString()<br>
+                                    <strong>Data zakończenia zadania:</strong> @item.QuestDateEnd.ToShortDateString()<br>
+                                    <strong>Status:</strong>
+                            @if (item.CancellationRequested)
+                            {
+                                @if (item.IsCanceled)
+                                {
+                                                    <span class="text-danger">Anulowane</span>
+                                }
+                                else
+                                {
+                                                    <span class="text-warning">Anulowanie w trakcie</span>
+                                }
+                            }
+                            else
+                            {
+                                            <span class="text-success">Zatwierdzone</span>
+                            }
+                                </p>
+                        @if (item.CancellationRequested && !item.IsCanceled)
+                        {
+                                        <a asp-action="ApproveCancellation" asp-route-id="@item.Id" class="btn btn-success">Zatwierdź anulowanie</a>
+                                        <a asp-action="DenyCancellation" asp-route-id="@item.Id" class="btn btn-danger">Odrzuć anulowanie</a>
+                        }
+                            </div>
+                        </div>
+                    </div>
+        }
+        </div>
+}

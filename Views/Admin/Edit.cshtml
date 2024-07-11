@@ -1,0 +1,81 @@
+﻿@model GopherToolboxRefresh.Models.Quest
+
+@{
+    ViewData["Title"] = "Edytuj Quest";
+}
+
+<h1>Edytuj Quest</h1>
+
+@if (!ViewData.ModelState.IsValid)
+{
+        <div class="alert alert-danger">
+            <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                        <li>@error.ErrorMessage</li>
+            }
+            </ul>
+        </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Quest</h4>
+        <hr />
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Nazwa</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label">Miasto</label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label">Adres</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestDateStart" class="control-label">Start Questa</label>
+                <input asp-for="QuestDateStart" class="form-control" />
+                <span asp-validation-for="QuestDateStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestDateEnd" class="control-label">Koniec Questa</label>
+                <input asp-for="QuestDateEnd" class="form-control" />
+                <span asp-validation-for="QuestDateEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Opis</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var startDate = new Date(document.querySelector('[name="QuestDateStart"]').value);
+            var endDate = new Date(document.querySelector('[name="QuestDateEnd"]').value);
+            if (endDate < startDate) {
+                event.preventDefault();
+                alert('The end date must be later than the start date.');
+            }
+        });
+    </script>
+}

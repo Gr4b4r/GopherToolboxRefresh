@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GopherToolboxRefresh.Models.CancelRequest>
+
+@{
+    ViewData["Title"] = "Prośby o anulowanie";
+}
+
+<h1>Prośby o anulowanie</h1>
+
+@if (!Model.Any())
+{
+        <p>Brak próśb o anulowanie.</p>
+}
+else
+{
+        <div class="row">
+        @foreach (var item in Model)
+        {
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Order.Quest.Name</h5>
+                                <p class="card-text">
+                                    <strong>Data podjęcia zadania:</strong> @item.Order.OrderDate.ToShortDateString()<br>
+                                    <strong>Adres:</strong> @item.Order.Quest.Address<br>
+                                    <strong>Data prośby:</strong> @item.RequestDate.ToShortDateString()
+                                </p>
+                                <form asp-action="ApproveCancellation" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-success">Zatwierdź</button>
+                                </form>
+                                <form asp-action="DenyCancellation" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-danger">Odrzuć</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        }
+        </div>
+}

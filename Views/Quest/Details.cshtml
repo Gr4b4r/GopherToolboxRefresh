@@ -1,0 +1,44 @@
+﻿@model GopherToolboxRefresh.Models.Quest
+
+@{
+	ViewData["Title"] = "Szczegóły Zadania";
+}
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="card-title">@Model.Name</h1>
+		<div class="quest-details">
+			<div class="quest-image">
+				<img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+			</div>
+			<div class="quest-info card-text">
+				<p><strong>Miasto:</strong> @Model.City</p>
+				<p><strong>Adres:</strong> @Model.Address</p>
+				<p><strong>Data rozpoczęcia zadania:</strong> @Model.QuestDateStart.ToShortDateString()<br></p>
+				<p><strong>Data zakończenia zadania:</strong> @Model.QuestDateEnd.ToShortDateString()<br></p>
+				<p>@Model.Description</p>
+				<form asp-action="AddToCart" method="post">
+					<input type="hidden" asp-for="Id" name="questId" />
+					<button type="submit" class="btn btn-primary">Podejmij się Questa</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.quest-details {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+	.quest-image {
+		flex: 1;
+	}
+	.quest-info {
+		flex: 2;
+	}
+	.quest-info h1 {
+		margin-top: 0;
+	}
+</style>
