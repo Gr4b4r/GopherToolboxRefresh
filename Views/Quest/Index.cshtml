@@ -5,16 +5,15 @@
 }
 
 <h1>Lista Zadań</h1>
-
+<form asp-controller="Quest" asp-action="Index">
+	<p>
+		Wyszukaj Quest: <input type="text" name="SearchString" />
+		<input type="submit" value="Filter" />
+	</p>
+</form>
 <div class="row">
 	@foreach (var item in Model)
 	{
-		<form asp-controller="Quest" asp-action="Index">
-			<p>
-				Wyszukaj Quest: <input type="text" name="SearchString" />
-				<input type="submit" value="Filter" />
-			</p>
-		</form>
 		<div class="col-md-4">
 			<div class="card mb-4">
 				<img class="card-img-top" src="@Url.Content(item.ImageUrl)" alt="@item.Name">
