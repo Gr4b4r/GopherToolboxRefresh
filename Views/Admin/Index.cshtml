@@ -6,26 +6,36 @@
 
 <h1>Quests</h1>
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text">
-                            <strong>Miasto:</strong> @item.City<br>
-                            <strong>Adres:</strong> @item.Address<br>
-                            <strong>Data rozpoczęcia zadania:</strong> @item.QuestDateStart.ToShortDateString()<br>
-                            <strong>Data zakończenia zadania:</strong> @item.QuestDateEnd.ToShortDateString()<br>
-                        </p>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-    }
-</div>
-
 <a asp-action="Create" class="btn btn-primary">Create New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Miasto</th>
+            <th>Adress</th>
+            <th>Data Startu</th>
+            <th>Data Końca</th>
+            <th>Ilość ludzi</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.City</td>
+                <td>@item.Address</td>
+                <td>@item.QuestDateStart.ToShortDateString()</td>
+                <td>@item.QuestDateEnd.ToShortDateString()</td>
+                <td>@item.SlotLimit</td>
+                <td width="250px;">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

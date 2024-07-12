@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using GopherToolboxRefresh.Models;
-public class Booking
+public class Userdata
 {
     public int Id { get; set; }
 

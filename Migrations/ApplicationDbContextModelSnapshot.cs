@@ -17,28 +17,6 @@ namespace Projekt.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
 
-            modelBuilder.Entity("Booking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("QuestId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Booking");
-                });
-
             modelBuilder.Entity("GopherToolboxRefresh.Models.CancelRequest", b =>
                 {
                     b.Property<int>("Id")
@@ -53,7 +31,8 @@ namespace Projekt.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.ToTable("CancelRequests");
                 });
@@ -109,6 +88,9 @@ namespace Projekt.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("CurrentOccupiedSlots")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -126,6 +108,9 @@ namespace Projekt.Migrations
                     b.Property<DateTime>("QuestDateStart")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("SlotLimit")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Quests");
@@ -136,110 +121,130 @@ namespace Projekt.Migrations
                             Id = 1,
                             Address = "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań",
                             City = "Poznań",
-                            Description = "Quest polega na zajmowaniu się dziecmi w wieku poniżej 13 roku życia. <br /> Jako główne cechy oczekujemy, rzyczliwości i umiejętności opeki nad najmłodzymi uczestnikami konwentu :)",
+                            CurrentOccupiedSlots = 0,
+                            Description = "Quest polega na zajmowaniu się dziecmi w wieku poniżej 13 roku życia. Jako główne cechy oczekujemy, rzyczliwości i umiejętności opeki nad najmłodzymi uczestnikami konwentu :)",
                             ImageUrl = "/images/1.jpg",
                             Name = "Pyrkon - Bejbiczki",
                             QuestDateEnd = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 20
                         },
                         new
                         {
                             Id = 2,
                             Address = "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań",
                             City = "Poznań",
+                            CurrentOccupiedSlots = 0,
                             Description = "Quest polega na udzielaniu pomocy gościom oraz prowadzącym sesje RPG",
                             ImageUrl = "/images/1.jpg",
                             Name = "Pyrkon - RPG",
                             QuestDateEnd = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 40
                         },
                         new
                         {
                             Id = 3,
                             Address = "Międzynarodowe Targi Poznańskie, Głogowska 4",
                             City = "Poznań",
+                            CurrentOccupiedSlots = 0,
                             Description = "Quest polega na wypożyczaniu oraz odbieraniu gier w wypożyczalni. Wymagamy podstawowej wiedzy z zakresu gier planszowych oraz chęci do nauki nowych gier.",
                             ImageUrl = "/images/1.jpg",
                             Name = "Pyrkon - Wypożyczalnia",
                             QuestDateEnd = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 30
                         },
                         new
                         {
                             Id = 4,
                             Address = "Liceum Ogólnokształące Mistrzostwa Sporotowego im. Poznańskich Olimpijczyków, Osiedle Tysiąclecia 43",
                             City = "Poznań",
+                            CurrentOccupiedSlots = 0,
                             Description = "Opieka nad sceną, czyli pomoc występującym, szybkie sprzątanie pomiędzy występami",
                             ImageUrl = "/images/2.jpg",
                             Name = "AnimeCon - Opieka Sceny",
                             QuestDateEnd = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 10
                         },
                         new
                         {
                             Id = 5,
                             Address = "Liceum Ogólnokształące Mistrzostwa Sporotowego im. Poznańskich Olimpijczyków, Osiedle Tysiąclecia 43",
                             City = "Poznań",
+                            CurrentOccupiedSlots = 0,
                             Description = "Prowadzenie akry",
                             ImageUrl = "/images/2.jpg",
                             Name = "AnimeCon - Akra",
                             QuestDateEnd = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 5
                         },
                         new
                         {
                             Id = 6,
                             Address = "Collegium Da Vinci, Kutrzeby 10, Poznań",
                             City = "Poznań",
+                            CurrentOccupiedSlots = 0,
                             Description = "Zajmowanie się terenem plenerowym aby były na bierząco dostarczane przedmioty do prowadzących",
                             ImageUrl = "/images/3.png",
                             Name = "Hikari - Plener",
                             QuestDateEnd = new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 15
                         },
                         new
                         {
                             Id = 7,
                             Address = "Collegium Da Vinci, Kutrzeby 10, Poznań",
                             City = "Poznań",
+                            CurrentOccupiedSlots = 0,
                             Description = "Administracja sceną, wpuszczanie oraz informowanie o zejscu ze sceny",
                             ImageUrl = "/images/3.png",
                             Name = "Hikari - Scena",
                             QuestDateEnd = new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 10
                         },
                         new
                         {
                             Id = 8,
                             Address = "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk",
                             City = "Gdańsk",
+                            CurrentOccupiedSlots = 0,
                             Description = "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze",
                             ImageUrl = "/images/4.png",
-                            Name = "Gdakon - Wsparcie ZTM",
+                            Name = "Gdakon - Wsparcie ZTM Hotel",
                             QuestDateEnd = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 5
                         },
                         new
                         {
                             Id = 9,
                             Address = "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk",
                             City = "Gdańsk",
+                            CurrentOccupiedSlots = 0,
                             Description = "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze",
                             ImageUrl = "/images/4.png",
-                            Name = "Gdakon - Wsparcie ZTM",
+                            Name = "Gdakon - Wsparcie ZTM Plener",
                             QuestDateEnd = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 5
                         },
                         new
                         {
                             Id = 10,
                             Address = "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk",
                             City = "Gdańsk",
+                            CurrentOccupiedSlots = 0,
                             Description = "Prowadzenie akredytacji oraz pomoc przy odbiorach identyfikatorów",
                             ImageUrl = "/images/4.png",
                             Name = "Gdakon - Akredytacja",
                             QuestDateEnd = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SlotLimit = 10
                         });
                 });
 
@@ -439,30 +444,33 @@ namespace Projekt.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Booking", b =>
+            modelBuilder.Entity("Userdata", b =>
                 {
-                    b.HasOne("GopherToolboxRefresh.Models.Quest", "Quest")
-                        .WithMany()
-                        .HasForeignKey("QuestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.HasOne("User", "User")
-                        .WithMany("Bookings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("QuestId")
+                        .HasColumnType("INTEGER");
 
-                    b.Navigation("Quest");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Navigation("User");
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Userdata");
                 });
 
             modelBuilder.Entity("GopherToolboxRefresh.Models.CancelRequest", b =>
                 {
                     b.HasOne("GopherToolboxRefresh.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
+                        .WithOne("CancelRequest")
+                        .HasForeignKey("GopherToolboxRefresh.Models.CancelRequest", "OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -472,7 +480,7 @@ namespace Projekt.Migrations
             modelBuilder.Entity("GopherToolboxRefresh.Models.Order", b =>
                 {
                     b.HasOne("GopherToolboxRefresh.Models.Quest", "Quest")
-                        .WithMany()
+                        .WithMany("UserQuests")
                         .HasForeignKey("QuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -539,9 +547,38 @@ namespace Projekt.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Userdata", b =>
+                {
+                    b.HasOne("GopherToolboxRefresh.Models.Quest", "Quest")
+                        .WithMany()
+                        .HasForeignKey("QuestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("User", "User")
+                        .WithMany("Userdatas")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quest");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GopherToolboxRefresh.Models.Order", b =>
+                {
+                    b.Navigation("CancelRequest");
+                });
+
+            modelBuilder.Entity("GopherToolboxRefresh.Models.Quest", b =>
+                {
+                    b.Navigation("UserQuests");
+                });
+
             modelBuilder.Entity("User", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("Userdatas");
                 });
 #pragma warning restore 612, 618
         }

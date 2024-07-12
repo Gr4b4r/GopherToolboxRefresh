@@ -49,6 +49,11 @@
                 <span asp-validation-for="QuestDateEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="SlotLimit" class="control-label">Ilość potrzebnych osób</label>
+                <input asp-for="SlotLimit" class="form-control" />
+                <span asp-validation-for="SlotLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label">
                     ImageUrl (podaj nazwę pliku wraz z rozszerzeniem)
                 </label>

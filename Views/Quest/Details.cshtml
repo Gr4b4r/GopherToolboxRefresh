@@ -2,8 +2,10 @@
 
 @{
 	ViewData["Title"] = "Szczegóły Zadania";
+	var activeQuestsCount = Model.UserQuests.Count(uq => !uq.IsCanceled);
 }
 
+<h1>@Model.Name</h1>
 <div class="card">
 	<div class="card-body">
 		<h1 class="card-title">@Model.Name</h1>
@@ -16,11 +18,21 @@
 				<p><strong>Adres:</strong> @Model.Address</p>
 				<p><strong>Data rozpoczęcia zadania:</strong> @Model.QuestDateStart.ToShortDateString()<br></p>
 				<p><strong>Data zakończenia zadania:</strong> @Model.QuestDateEnd.ToShortDateString()<br></p>
+				<p><strong>Ilość miejsc:</strong> @Model.CurrentOccupiedSlots / @Model.SlotLimit <br /></p>
 				<p>@Model.Description</p>
-				<form asp-action="AddToCart" method="post">
-					<input type="hidden" asp-for="Id" name="questId" />
-					<button type="submit" class="btn btn-primary">Podejmij się Questa</button>
-				</form>
+				@if (activeQuestsCount < Model.SlotLimit && !Model.UserQuests.Any(uq => !uq.IsCanceled))
+				{
+					<form method="post" asp-action="Join" asp-route-id="@Model.Id">
+						<button type="submit" class="btn btn-success">Dołącz do Questa</button>
+					</form>
+				}
+				else
+				{
+					<button class="btn btn-danger" disabled>@(activeQuestsCount >= Model.SlotLimit ? "Brak dostepnych miejsc" : "Już dołączyłeś do tego Questa")</button>
+				}
+				<div style="margin-top: 10px;">
+					<a asp-action="Index" class="btn btn-primary">Back to List</a>
+				</div>
 			</div>
 		</div>
 	</div>

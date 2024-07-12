@@ -1,40 +1,40 @@
 ﻿@model IEnumerable<GopherToolboxRefresh.Models.CancelRequest>
 
 @{
-    ViewData["Title"] = "Prośby o anulowanie";
+    ViewData["Title"] = "Cancel Requests";
 }
 
-<h1>Prośby o anulowanie</h1>
+<h2>Cancel Requests</h2>
 
-@if (!Model.Any())
-{
-        <p>Brak próśb o anulowanie.</p>
-}
-else
-{
-        <div class="row">
-        @foreach (var item in Model)
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa Questa</th>
+            <th>Użytkownik</th>
+            <th>Data prośby</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
         {
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title">@item.Order.Quest.Name</h5>
-                                <p class="card-text">
-                                    <strong>Data podjęcia zadania:</strong> @item.Order.OrderDate.ToShortDateString()<br>
-                                    <strong>Adres:</strong> @item.Order.Quest.Address<br>
-                                    <strong>Data prośby:</strong> @item.RequestDate.ToShortDateString()
-                                </p>
-                                <form asp-action="ApproveCancellation" method="post" class="d-inline">
-                                    <input type="hidden" name="id" value="@item.Id" />
-                                    <button type="submit" class="btn btn-success">Zatwierdź</button>
-                                </form>
-                                <form asp-action="DenyCancellation" method="post" class="d-inline">
-                                    <input type="hidden" name="id" value="@item.Id" />
-                                    <button type="submit" class="btn btn-danger">Odrzuć</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+            <tr>
+                <td>@request.OrderId</td>
+                <td>@request.Order.Quest.Name</td>
+                <td>@request.Order.User.UserName</td>
+                <td>@request.RequestDate.ToShortDateString()</td>
+                <td>
+                    <form asp-action="ApproveCancellation" method="post">
+                        <input type="hidden" name="id" value="@request.Id" />
+                        <button type="submit" class="btn btn-success" style="width:6em; margin-bottom:5px;">Akceptuj</button>
+                    </form>
+                    <form asp-action="DenyCancellation" method="post">
+                        <input type="hidden" name="id" value="@request.Id" />
+                        <button type="submit" class="btn btn-danger" style="width:6em;">Odrzuć</button>
+                    </form>
+                </td>
+            </tr>
         }
-        </div>
-}
+    </tbody>
+</table>

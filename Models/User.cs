@@ -5,6 +5,6 @@ using System.Collections.Generic;
 public class User : IdentityUser
 {
     
-    public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+    public ICollection<Userdata> Userdatas { get; set; } = new List<Userdata>();
 }
 

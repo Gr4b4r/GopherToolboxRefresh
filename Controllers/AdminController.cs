@@ -9,169 +9,182 @@ using System.Threading.Tasks;
 
 namespace GopherToolboxRefresh.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
-    {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
+	[Authorize(Roles = "Admin")]
+	public class AdminController : Controller
+	{
+		private readonly ApplicationDbContext _context;
+		private readonly UserManager<User> _userManager;
 
-        public AdminController(ApplicationDbContext context, UserManager<User> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
+		public AdminController(ApplicationDbContext context, UserManager<User> userManager)
+		{
+			_context = context;
+			_userManager = userManager;
+		}
 
-        public async Task<IActionResult> CancelRequests()
-        {
-            var requests = await _context.CancelRequests
-                .Include(c => c.Order)
-                .ThenInclude(o => o.Quest)
-                .Include(c => c.Order.User) // Include user information
-                .ToListAsync();
+		public async Task<IActionResult> CancelRequests()
+		{
+			var requests = await _context.CancelRequests
+				.Include(c => c.Order)
+				.ThenInclude(o => o.Quest)
+				.Include(c => c.Order.User)
+				.ToListAsync();
 
-            return View(requests);
-        }
+			return View(requests);
+		}
 
-        public async Task<IActionResult> Orders()
-        {
-            var orders = await _context.Orders
-                .Include(o => o.Quest)
-                .Include(o => o.User) // Include user information
-                .ToListAsync();
-            return View(orders);
-        }
+		public async Task<IActionResult> Orders()
+		{
+			var orders = await _context.Orders
+				.Include(o => o.Quest)
+				.Include(o => o.User) 
+				.ToListAsync();
+			return View(orders);
+		}
 
-        [HttpPost]
-        public async Task<IActionResult> ApproveCancellation(int id)
-        {
-            var request = await _context.CancelRequests
-                .Include(c => c.Order)
-                .FirstOrDefaultAsync(c => c.Id == id);
+		[HttpPost]
+		public async Task<IActionResult> ApproveCancellation(int id)
+		{
+			var request = await _context.CancelRequests
+				.Include(c => c.Order)
+				.ThenInclude(o => o.Quest)
+				.Include(c => c.Order.User)
+				.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (request == null)
-            {
-                return NotFound();
-            }
+			if (request == null)
+			{
+				return NotFound();
+			}
 
-            var order = request.Order;
-            order.IsCanceled = true; // Set cancel status
-            _context.Orders.Update(order); // Update the order
-            _context.CancelRequests.Remove(request);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("CancelRequests");
-        }
+			var order = request.Order;
+			var quest = order.Quest;
 
-        [HttpPost]
-        public async Task<IActionResult> DenyCancellation(int id)
-        {
-            var request = await _context.CancelRequests
-                .Include(c => c.Order)
-                .FirstOrDefaultAsync(c => c.Id == id);
+			if (quest.CurrentOccupiedSlots > 0)
+			{
+				quest.CurrentOccupiedSlots--;
+			}
 
-            if (request == null)
-            {
-                return NotFound();
-            }
+			order.IsCanceled = true;
+			_context.Quests.Update(quest);
+			_context.Orders.Update(order);
+			_context.CancelRequests.Remove(request);
 
-            request.Order.CancellationRequested = false;
-            _context.CancelRequests.Remove(request);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("CancelRequests");
-        }
+			await _context.SaveChangesAsync();
 
-        public IActionResult Index()
-        {
-            var quests = _context.Quests.ToList();
-            return View(quests);
-        }
+			return RedirectToAction("CancelRequests");
+		}
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+		[HttpPost]
+		public async Task<IActionResult> DenyCancellation(int id)
+		{
+			var request = await _context.CancelRequests
+				.Include(c => c.Order)
+				.FirstOrDefaultAsync(c => c.Id == id);
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Quest quest)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(quest);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(quest);
-        }
+			if (request == null)
+			{
+				return NotFound();
+			}
 
-        public async Task<IActionResult> Edit(int id)
-        {
-            var quest = await _context.Quests.FindAsync(id);
-            if (quest == null)
-            {
-                return NotFound();
-            }
-            return View(quest);
-        }
+			request.Order.CancellationRequested = false;
+			_context.CancelRequests.Remove(request);
+			await _context.SaveChangesAsync();
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Quest quest)
-        {
-            if (id != quest.Id)
-            {
-                return NotFound();
-            }
+			return RedirectToAction("CancelRequests");
+		}
 
-            if (ModelState.IsValid)
-            {
-                _context.Update(quest);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(quest);
-        }
+		public IActionResult Index()
+		{
+			var quests = _context.Quests.ToList();
+			return View(quests);
+		}
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		public IActionResult Create()
+		{
+			return View();
+		}
 
-            var quest = await _context.Quests.FindAsync(id);
-            if (quest == null)
-            {
-                return NotFound();
-            }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create(Quest quest)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Add(quest);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(quest);
+		}
 
-            return View(quest);
-        }
+		public async Task<IActionResult> Edit(int id)
+		{
+			var quest = await _context.Quests.FindAsync(id);
+			if (quest == null)
+			{
+				return NotFound();
+			}
+			return View(quest);
+		}
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var quest = await _context.Quests.FindAsync(id);
-            if (quest == null)
-            {
-                return NotFound();
-            }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, Quest quest)
+		{
+			if (id != quest.Id)
+			{
+				return NotFound();
+			}
 
-            _context.Quests.Remove(quest);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			if (ModelState.IsValid)
+			{
+				_context.Update(quest);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(quest);
+		}
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
-            var quest = await _context.Quests.FirstOrDefaultAsync(h => h.Id == id);
-            if (quest == null)
-            {
-                return NotFound();
-            }
-            return View(quest);
-        }
-    }
+		[HttpGet]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var quest = await _context.Quests.FindAsync(id);
+			if (quest == null)
+			{
+				return NotFound();
+			}
+
+			return View(quest);
+		}
+
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var quest = await _context.Quests.FindAsync(id);
+			if (quest == null)
+			{
+				return NotFound();
+			}
+
+			_context.Quests.Remove(quest);
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Details(int id)
+		{
+			var quest = await _context.Quests.FirstOrDefaultAsync(h => h.Id == id);
+			if (quest == null)
+			{
+				return NotFound();
+			}
+			return View(quest);
+		}
+	}
 }

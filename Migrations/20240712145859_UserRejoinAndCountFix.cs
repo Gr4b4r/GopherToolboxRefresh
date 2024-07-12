@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class UserRejoinAndCountFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -64,7 +64,9 @@ namespace Projekt.Migrations
                     QuestDateStart = table.Column<DateTime>(type: "TEXT", nullable: false),
                     QuestDateEnd = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true)
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    SlotLimit = table.Column<int>(type: "INTEGER", nullable: false),
+                    CurrentOccupiedSlots = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -178,42 +180,16 @@ namespace Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Booking",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    QuestId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Booking", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Booking_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Booking_Quests_QuestId",
-                        column: x => x.QuestId,
-                        principalTable: "Quests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
                     QuestId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     QuestDateStart = table.Column<DateTime>(type: "TEXT", nullable: false),
                     QuestDateEnd = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CancellationRequested = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
@@ -228,6 +204,32 @@ namespace Projekt.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_Quests_QuestId",
+                        column: x => x.QuestId,
+                        principalTable: "Quests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Userdata",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    QuestId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Userdata", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Userdata_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Userdata_Quests_QuestId",
                         column: x => x.QuestId,
                         principalTable: "Quests",
                         principalColumn: "Id",
@@ -256,19 +258,19 @@ namespace Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "Quests",
-                columns: new[] { "Id", "Address", "City", "Description", "ImageUrl", "Name", "QuestDateEnd", "QuestDateStart" },
+                columns: new[] { "Id", "Address", "City", "CurrentOccupiedSlots", "Description", "ImageUrl", "Name", "QuestDateEnd", "QuestDateStart", "SlotLimit" },
                 values: new object[,]
                 {
-                    { 1, "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań", "Poznań", "Quest polega na zajmowaniu się dziecmi w wieku poniżej 13 roku życia. <br /> Jako główne cechy oczekujemy, rzyczliwości i umiejętności opeki nad najmłodzymi uczestnikami konwentu :)", "/images/1.jpg", "Pyrkon - Bejbiczki", new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań", "Poznań", "Quest polega na udzielaniu pomocy gościom oraz prowadzącym sesje RPG", "/images/1.jpg", "Pyrkon - RPG", new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, "Międzynarodowe Targi Poznańskie, Głogowska 4", "Poznań", "Quest polega na wypożyczaniu oraz odbieraniu gier w wypożyczalni. Wymagamy podstawowej wiedzy z zakresu gier planszowych oraz chęci do nauki nowych gier.", "/images/1.jpg", "Pyrkon - Wypożyczalnia", new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, "Liceum Ogólnokształące Mistrzostwa Sporotowego im. Poznańskich Olimpijczyków, Osiedle Tysiąclecia 43", "Poznań", "Opieka nad sceną, czyli pomoc występującym, szybkie sprzątanie pomiędzy występami", "/images/2.jpg", "AnimeCon - Opieka Sceny", new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5, "Liceum Ogólnokształące Mistrzostwa Sporotowego im. Poznańskich Olimpijczyków, Osiedle Tysiąclecia 43", "Poznań", "Prowadzenie akry", "/images/2.jpg", "AnimeCon - Akra", new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 6, "Collegium Da Vinci, Kutrzeby 10, Poznań", "Poznań", "Zajmowanie się terenem plenerowym aby były na bierząco dostarczane przedmioty do prowadzących", "/images/3.png", "Hikari - Plener", new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 7, "Collegium Da Vinci, Kutrzeby 10, Poznań", "Poznań", "Administracja sceną, wpuszczanie oraz informowanie o zejscu ze sceny", "/images/3.png", "Hikari - Scena", new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 8, "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk", "Gdańsk", "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze", "/images/4.png", "Gdakon - Wsparcie ZTM", new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 9, "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk", "Gdańsk", "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze", "/images/4.png", "Gdakon - Wsparcie ZTM", new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 10, "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk", "Gdańsk", "Prowadzenie akredytacji oraz pomoc przy odbiorach identyfikatorów", "/images/4.png", "Gdakon - Akredytacja", new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań", "Poznań", 0, "Quest polega na zajmowaniu się dziecmi w wieku poniżej 13 roku życia. Jako główne cechy oczekujemy, rzyczliwości i umiejętności opeki nad najmłodzymi uczestnikami konwentu :)", "/images/1.jpg", "Pyrkon - Bejbiczki", new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 20 },
+                    { 2, "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań", "Poznań", 0, "Quest polega na udzielaniu pomocy gościom oraz prowadzącym sesje RPG", "/images/1.jpg", "Pyrkon - RPG", new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 40 },
+                    { 3, "Międzynarodowe Targi Poznańskie, Głogowska 4", "Poznań", 0, "Quest polega na wypożyczaniu oraz odbieraniu gier w wypożyczalni. Wymagamy podstawowej wiedzy z zakresu gier planszowych oraz chęci do nauki nowych gier.", "/images/1.jpg", "Pyrkon - Wypożyczalnia", new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 30 },
+                    { 4, "Liceum Ogólnokształące Mistrzostwa Sporotowego im. Poznańskich Olimpijczyków, Osiedle Tysiąclecia 43", "Poznań", 0, "Opieka nad sceną, czyli pomoc występującym, szybkie sprzątanie pomiędzy występami", "/images/2.jpg", "AnimeCon - Opieka Sceny", new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 10 },
+                    { 5, "Liceum Ogólnokształące Mistrzostwa Sporotowego im. Poznańskich Olimpijczyków, Osiedle Tysiąclecia 43", "Poznań", 0, "Prowadzenie akry", "/images/2.jpg", "AnimeCon - Akra", new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 5 },
+                    { 6, "Collegium Da Vinci, Kutrzeby 10, Poznań", "Poznań", 0, "Zajmowanie się terenem plenerowym aby były na bierząco dostarczane przedmioty do prowadzących", "/images/3.png", "Hikari - Plener", new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 15 },
+                    { 7, "Collegium Da Vinci, Kutrzeby 10, Poznań", "Poznań", 0, "Administracja sceną, wpuszczanie oraz informowanie o zejscu ze sceny", "/images/3.png", "Hikari - Scena", new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 10 },
+                    { 8, "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk", "Gdańsk", 0, "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze", "/images/4.png", "Gdakon - Wsparcie ZTM Hotel", new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 5 },
+                    { 9, "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk", "Gdańsk", 0, "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze", "/images/4.png", "Gdakon - Wsparcie ZTM Plener", new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 5 },
+                    { 10, "Hotel Novotel Marina, Jelitkowska 20, 80-342 Gdańsk", "Gdańsk", 0, "Prowadzenie akredytacji oraz pomoc przy odbiorach identyfikatorów", "/images/4.png", "Gdakon - Akredytacja", new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), 10 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -309,19 +311,10 @@ namespace Projekt.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_QuestId",
-                table: "Booking",
-                column: "QuestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Booking_UserId",
-                table: "Booking",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CancelRequests_OrderId",
                 table: "CancelRequests",
-                column: "OrderId");
+                column: "OrderId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_QuestId",
@@ -331,6 +324,16 @@ namespace Projekt.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Userdata_QuestId",
+                table: "Userdata",
+                column: "QuestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Userdata_UserId",
+                table: "Userdata",
                 column: "UserId");
         }
 
@@ -353,10 +356,10 @@ namespace Projekt.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Booking");
+                name: "CancelRequests");
 
             migrationBuilder.DropTable(
-                name: "CancelRequests");
+                name: "Userdata");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

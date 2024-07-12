@@ -28,6 +28,12 @@ namespace GopherToolboxRefresh.Models
         [Required]
         public string Description { get; set; } = string.Empty;
         public string? ImageUrl { get; set; }  // Nullable
+
+        [Required]
+        public int SlotLimit { get; set; }
+		public int CurrentOccupiedSlots { get; set; }
+
+		public ICollection<Order> UserQuests { get; set; } = new List<Order>();
     }
 
     public class EndDateAfterStartDateAttribute : ValidationAttribute
