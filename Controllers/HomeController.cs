@@ -20,14 +20,14 @@ public class HomeController : Controller
 
 	public IActionResult Index()
 	{
-		if (!_signInManager.IsSignedIn(User))
+		if (_signInManager.IsSignedIn(User))
 		{
-			return RedirectToAction("Login", "Account");
-		}
+            return RedirectToAction("Index", "Quest");
+        }
 		else
 		{
-			return RedirectToAction("Index", "Quest");
-		}
+            return View();
+        }
 	}
 
 	public IActionResult Error()
