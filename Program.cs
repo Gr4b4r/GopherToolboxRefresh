@@ -25,7 +25,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.SignIn.RequireConfirmedAccount = true;
     options.User.RequireUniqueEmail = true;
 })
-.AddRoles<IdentityRole>() // Add roles
+.AddRoles<IdentityRole>() 
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
@@ -70,10 +70,6 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "adminRejectCancellation",
     pattern: "{controller=Admin}/{action=RejectCancellation}/{id?}");
-
-app.MapRazorPages();
-
-
 
 app.MapRazorPages();
 

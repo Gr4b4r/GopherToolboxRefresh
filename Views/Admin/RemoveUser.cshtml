@@ -1,0 +1,40 @@
+﻿@model GopherToolboxRefresh.Models.UserModel
+
+@{
+    
+}
+
+<h1>Delete Quest</h1>
+<div class="card adminSets">
+    <h3>Jesteś pewien że chcesz usunąć poniższy wpis?</h3>
+    <div>
+        <h4>Quest</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nickname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Birthdate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Usuń" class="btn btn-danger" /> |
+            <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+        </form>
+    </div>
+</div>

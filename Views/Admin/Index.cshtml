@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<GopherToolboxRefresh.Models.Quest>
 
 @{
-    ViewData["Title"] = "Quests";
+    ViewData["Title"] = "Questy";
 }
 
-<h1>Quests</h1>
+<h1>Questy</h1>
 
-<a asp-action="Create" class="btn btn-primary">Create New</a>
+<a asp-action="Create" class="btn btn-primary">Stwórz nowego Questa</a>
 
-<div class="card">
+<div class="card adminSets">
     <table class="table">
         <thead>
             <tr>
@@ -31,7 +31,7 @@
                     <td>@item.QuestDateStart.ToShortDateString()</td>
                     <td>@item.QuestDateEnd.ToShortDateString()</td>
                     <td>@item.SlotLimit</td>
-                    <td width="250px;">
+                    <td width="260px;">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Usuń</a>

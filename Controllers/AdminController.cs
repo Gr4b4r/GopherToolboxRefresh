@@ -6,6 +6,9 @@ using GopherToolboxRefresh.Data;
 using GopherToolboxRefresh.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using GopherToolboxRefresh.ViewModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace GopherToolboxRefresh.Controllers
 {
@@ -14,11 +17,13 @@ namespace GopherToolboxRefresh.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public AdminController(ApplicationDbContext context, UserManager<User> userManager)
+		public AdminController(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
 		{
 			_context = context;
 			_userManager = userManager;
+			_roleManager = roleManager;
 		}
 
 		public async Task<IActionResult> CancelRequests()
@@ -36,7 +41,7 @@ namespace GopherToolboxRefresh.Controllers
 		{
 			var orders = await _context.Orders
 				.Include(o => o.Quest)
-				.Include(o => o.User) 
+				.Include(o => o.User)
 				.ToListAsync();
 			return View(orders);
 		}
@@ -187,9 +192,10 @@ namespace GopherToolboxRefresh.Controllers
 			return View(quest);
 		}
 
-		public IActionResult UserManagment()
+		public IActionResult UserManagement()
 		{
-			return View();
+			var users = _context.Users.ToList();
+			return View(users);
 		}
 	}
 }

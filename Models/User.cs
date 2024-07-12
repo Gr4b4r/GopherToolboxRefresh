@@ -6,5 +6,6 @@ public class User : IdentityUser
 {
     
     public ICollection<Userdata> Userdatas { get; set; } = new List<Userdata>();
+
 }
 

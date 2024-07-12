@@ -1,10 +1,11 @@
-﻿@model IEnumerable<GopherToolboxRefresh.Models.Order>
+﻿
 
 @{
 	
 }
 
 <h1>Zarządzanie użytkownikami</h1>
+<a asp-action="RegisterUser" class="btn btn-primary" style="margin-top: 10px;">Zarejestruj użytkownika</a>
 <div class="card adminSets">
 	<table class="table">
 		<thead>
@@ -27,13 +28,12 @@
 					<td>item.Name</td>
 					<td>item.Nickname</td>
 					<td>item.Surname</td>
-					<td>item.BirthDate</td>
+					<td>item.Birthdate</td>
 					<td>item.Email</td>
 					<td>item.Phone</td>
-					<td width="250px;">
-						<a asp-action="Edit" asp-route-id="item.Id" class="btn btn-warning">Edytuj</a>
-						<a asp-action="Details" asp-route-id="item.Id" class="btn btn-primary">Szczegóły</a>
-						<a asp-action="Delete" asp-route-id="item.Id" class="btn btn-danger">Usuń</a>
+					<td width="156px;">
+						<a asp-action="EditUser" asp-route-id="item.Id" class="btn btn-warning">Edytuj</a>
+					<a asp-action="RemoveUser" asp-route-id="item.Id" class="btn btn-danger">Usuń</a>
 					</td>
 				</tr>
 			}
