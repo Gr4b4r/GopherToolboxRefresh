@@ -22,10 +22,18 @@ namespace GopherToolboxRefresh.Controllers
 			_userManager = userManager;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(string searchString)
 		{
+			var quests = from m in _context.Quests
+						 select m;
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				quests = quests.Where(s => s.Name!.Contains(searchString));
+			}
+
 			var quest = await _context.Quests.ToListAsync();
-			return View(quest);
+			return View(await quests.ToListAsync());
+			//return View(quest);
 		}
 
 		public async Task<IActionResult> Details(int id)
