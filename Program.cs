@@ -56,6 +56,10 @@ app.MapControllerRoute(
 
 
 app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
     name: "adminOrders",
     pattern: "{controller=Admin}/{action=Orders}/{id?}");
 
@@ -67,10 +71,6 @@ app.MapControllerRoute(
     name: "adminRejectCancellation",
     pattern: "{controller=Admin}/{action=RejectCancellation}/{id?}");
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 
@@ -97,7 +97,7 @@ async Task SeedRolesAndAdminUser(IHost app)
         }
 
         // Ensure the Admin user exists and is assigned the Admin role
-        var adminUser = await userManager.FindByEmailAsync("admin@admin.pl");
+        var adminUser = await userManager.FindByEmailAsync("admin@tgies.pl");
         if (adminUser == null)
         {
             adminUser = new User
