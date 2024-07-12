@@ -12,13 +12,13 @@
             <ul>
             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {
-                        <li>@error.ErrorMessage</li>
+                <li>@error.ErrorMessage</li>
             }
             </ul>
         </div>
 }
 
-<div class="card">
+<div class="card adminSets">
     <div class="card-body">
         <h4 class="card-title">Quest</h4>
         <hr />

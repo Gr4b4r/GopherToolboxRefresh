@@ -5,36 +5,38 @@
 }
 
 <h2>Cancel Requests</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nazwa Questa</th>
-            <th>Użytkownik</th>
-            <th>Data prośby</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var request in Model)
-        {
+<div class="card adminSets">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@request.OrderId</td>
-                <td>@request.Order.Quest.Name</td>
-                <td>@request.Order.User.UserName</td>
-                <td>@request.RequestDate.ToShortDateString()</td>
-                <td>
-                    <form asp-action="ApproveCancellation" method="post">
-                        <input type="hidden" name="id" value="@request.Id" />
-                        <button type="submit" class="btn btn-success" style="width:6em; margin-bottom:5px;">Akceptuj</button>
-                    </form>
-                    <form asp-action="DenyCancellation" method="post">
-                        <input type="hidden" name="id" value="@request.Id" />
-                        <button type="submit" class="btn btn-danger" style="width:6em;">Odrzuć</button>
-                    </form>
-                </td>
+                <th>ID</th>
+                <th>Nazwa Questa</th>
+                <th>Użytkownik</th>
+                <th>Data prośby</th>
+                <th>Akcje</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.OrderId</td>
+                    <td>@request.Order.Quest.Name</td>
+                    <td>@request.Order.User.UserName</td>
+                    <td>@request.RequestDate.ToShortDateString()</td>
+                    <td>
+                        <form asp-action="ApproveCancellation" method="post">
+                            <input type="hidden" name="id" value="@request.Id" />
+                            <button type="submit" class="btn btn-success" style="width:6em; margin-bottom:5px;">Akceptuj</button>
+                        </form>
+                        <form asp-action="DenyCancellation" method="post">
+                            <input type="hidden" name="id" value="@request.Id" />
+                            <button type="submit" class="btn btn-danger" style="width:6em;">Odrzuć</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -49,13 +49,9 @@ body {
 		color: white;
 	}
 }
-.card {
-	background-color: transparent;
-	border: 0px;
-}
 
 .card {
-	display: inline-block;
+	border: 0px;
 	margin: 5px;
 	background: rgba(50, 50, 50, 0.75);
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -107,8 +103,8 @@ body {
 	top: 33%;
 	padding:2%;
 	box-shadow: 1px 5px 17px -3px rgba(0,0,0,0.75);
--webkit-box-shadow: 1px 5px 17px -3px rgba(0,0,0,0.75);
--moz-box-shadow: 1px 5px 17px -3px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 1px 5px 17px -3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 5px 17px -3px rgba(0,0,0,0.75);
 }
 
 .log-butt {

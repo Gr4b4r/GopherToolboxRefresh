@@ -186,5 +186,10 @@ namespace GopherToolboxRefresh.Controllers
 			}
 			return View(quest);
 		}
+
+		public IActionResult UserManagment()
+		{
+			return View();
+		}
 	}
 }
