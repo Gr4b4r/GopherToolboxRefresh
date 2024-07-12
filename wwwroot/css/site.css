@@ -71,6 +71,10 @@ body {
 	color: #000000 !important; /* Kolor czcionki dla elementów nawigacji */
 }
 
+.adminSets {
+	padding: 15px; 
+}
+
 .overlay {
 	position: absolute;
 	top: 0;

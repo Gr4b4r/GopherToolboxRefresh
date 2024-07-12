@@ -24,7 +24,7 @@ namespace GopherToolboxRefresh.Data
 
 			modelBuilder.Entity<Quest>().HasData(
 				new Quest { Id = 1, Name = "Pyrkon - Bejbiczki", City = "Poznań", Address = "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań", ImageUrl = "/images/1.jpg", QuestDateStart = new DateTime (2025, 06 , 13), QuestDateEnd = new DateTime(2025, 06, 15), 
-				Description = "Quest polega na zajmowaniu się dziecmi w wieku poniżej 13 roku życia. Jako główne cechy oczekujemy, rzyczliwości i umiejętności opeki nad najmłodzymi uczestnikami konwentu :)", SlotLimit = 20 },
+				Description = "Quest polega na zajmowaniu się dziećmi w wieku poniżej 13 roku życia. Jako główne cechy oczekujemy, życzliwości i umiejętności opieki nad najmłodszymi uczestnikami konwentu :)", SlotLimit = 20 },
 				new Quest { Id = 2, Name = "Pyrkon - RPG", City = "Poznań", Address = "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań", ImageUrl = "/images/1.jpg", QuestDateStart = new DateTime(2025, 06, 13), QuestDateEnd = new DateTime(2025, 06, 15),
 				Description = "Quest polega na udzielaniu pomocy gościom oraz prowadzącym sesje RPG", SlotLimit = 40},
 				new Quest { Id = 3, Name = "Pyrkon - Wypożyczalnia", City = "Poznań", Address = "Międzynarodowe Targi Poznańskie, Głogowska 4", ImageUrl = "/images/1.jpg", QuestDateStart = new DateTime(2025, 06, 13), QuestDateEnd = new DateTime(2025, 06, 15),
