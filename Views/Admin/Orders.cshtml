@@ -12,41 +12,43 @@
 }
 else
 {
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Nazwa Questa</th>
-				<th>Użytkownik</th>
-				<th>Miejsce</th>
-				<th>Data Prośby</th>
-				<th>Akcja</th>
-			</tr>
-		</thead>
-		<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
-				<td>@item.Quest.Name</td>
-				<td>@item.User?.Email</td>
-				<td>@item.Quest.Address</td>
-				<td>@item.OrderDate.ToShortDateString()</td>
-				@if (item.CancellationRequested)
-				{
-					@if (item.IsCanceled)
+	<div class="card adminSets">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nazwa Questa</th>
+					<th>Użytkownik</th>
+					<th>Miejsce</th>
+					<th>Data Prośby</th>
+					<th>Akcja</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Quest.Name</td>
+					<td>@item.User?.Email</td>
+					<td>@item.Quest.Address</td>
+					<td>@item.OrderDate.ToShortDateString()</td>
+					@if (item.CancellationRequested)
 					{
-						<td class="text-danger">Anulowane</td>
+						@if (item.IsCanceled)
+						{
+							<td class="text-danger">Anulowane</td>
+						}
+						else
+						{
+							<td class="text-warning">Wysłana prośba o anulowanie</td>
+						}
 					}
 					else
 					{
-						<td class="text-warning">Wysłana prośba o anulowanie</td>
+						<td class="text-success">Przyjęte zgłoszenie</td>
 					}
-				}
-				else
-				{
-					<td class="text-success">Przyjęte zgłoszenie</td>
-				}
-			</tr>
-		}
-		</tbody>
-	</table>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
 }
