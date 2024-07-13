@@ -165,16 +165,55 @@ Autor: Gr4b4r, AcuDuk
   - **Opis**: Wyświetla szczegóły questa na podstawie `id`.
   - **Zwracane dane**: Widok `Details`
 
+### HomeController
+- **GET Index**: Wyświetla stronę główną aplikacji.
+  - **Metoda HTTP**: GET
+  - **Parametry**: Brak
+  - **Opis**: Wyświetla stronę główną aplikacji.
+  - **Zwracane dane**: Widok `Index`
+
+### QuestController
+- **GET Index**: Wyświetla listę dostępnych questów.
+  - **Metoda HTTP**: GET
+  - **Parametry**: Brak
+  - **Opis**: Wyświetla listę dostępnych questów.
+  - **Zwracane dane**: Widok `Index`
+
+- **GET Details/{id}**: Wyświetla szczegóły questa.
+  - **Metoda HTTP**: GET
+  - **Parametry**: `id` (int)
+  - **Opis**: Wyświetla szczegóły questa na podstawie `id`.
+  - **Zwracane dane**: Widok `Details`
+
 ## System użytkowników
-- **Role**: Admin
-- **Konto admina**: login: admin@admin.pl, hasło: Admin123!@#
-- **Funkcje admina**: 
-  - Zarządzanie użytkownikami i questami.
-  - Przeglądanie i rozpatrywanie próśb o anulowanie zadań.
-- **Możliwości użytkowników zalogowanych**:
-  - Przeglądanie dostępnych questów.
-  - Rezerwowanie i zarządzanie questami.
-- **Informacje powiązane z użytkownikiem**: Dane osobowe takie jak imię, nazwisko, adres e-mail, numery telefonów oraz informacje o zarezerwowanych questach.
+
+### Role:
+
+- **Admin**: Posiada pełne uprawnienia do zarządzania aplikacją, w tym użytkownikami, questami i zamówieniami.
+- **User**: Może przeglądać, rezerwować i zarządzać swoimi questami.
+
+### Konto administratora:
+
+- **Login**: admin@admin.pl
+- **Hasło**: Admin123!@#
+
+### Funkcje administratora:
+
+- Zarządzanie użytkownikami (dodawanie, edytowanie, usuwanie).
+- Zarządzanie questami (dodawanie, edytowanie, usuwanie).
+- Przeglądanie i rozpatrywanie próśb o anulowanie questów.
+- Zarządzanie zamówieniami.
+
+### Możliwości użytkowników zalogowanych:
+
+- Przeglądanie dostępnych questów.
+- Rezerwowanie questów.
+- Zarządzanie własnymi questami.
+
+### Informacje powiązane z użytkownikiem:
+
+- Dane osobowe: Imię, nazwisko, adres e-mail, numery telefonów.
+- Informacje o zarezerwowanych questach.
 
 ## Najciekawsze funkcjonalności
 - **Zarządzanie questami**: Administratorzy mogą dodawać, edytować i usuwać questy.
