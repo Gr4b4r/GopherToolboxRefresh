@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Rola" class="control-label">Rola</label>
-                <select asp-for="Rola">
+                <select asp-for="Rola" class="form-select">
                     @if (Model.Rola == "Admin") {
                         <option value="Admin" selected>Admin</option>
                         <option value="Uzytkownik">Użytkownik</option>

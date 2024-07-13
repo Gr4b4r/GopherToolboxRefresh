@@ -18,6 +18,7 @@
 				<th>Data ur.</th>
 				<th>Email</th>
 				<th>Telefon</th>
+				<th>Rola</th>
 				<th>Akcje</th>
 			</tr>
 		</thead>
@@ -32,6 +33,7 @@
 					<td>@user.Birthdate.ToShortDateString()</td>
 					<td>@user.Email</td>
 					<td>@user.Phone</td>
+					<td>@user.Rola</td>
 					<td width="260px;">
 						<a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-warning">Edytuj</a>
 						<a asp-action="UserDetails" asp-route-id="@user.Id" class="btn btn-primary">Szczegóły</a>
