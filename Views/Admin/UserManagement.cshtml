@@ -26,15 +26,15 @@
 			{
 				<tr>
 					<td>@user.Id</td>
-					<td>@user.UserName</td>
+					<td>@user.Name</td>
 					<td>@user.Nickname</td>
 					<td>@user.Surname</td>
-					<td>@user.Birthdate</td>
+					<td>@user.Birthdate.ToShortDateString()</td>
 					<td>@user.Email</td>
 					<td>@user.Phone</td>
 					<td width="156px;">
-						<a asp-action="EditUser" asp-route-id="user.Id" class="btn btn-warning">Edytuj</a>
-					<a asp-action="RemoveUser" asp-route-id="user.Id" class="btn btn-danger">Usuń</a>
+						<a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-warning">Edytuj</a>
+						<a asp-action="RemoveUser" asp-route-id="@user.Id" class="btn btn-danger">Usuń</a>
 					</td>
 				</tr>
 			}

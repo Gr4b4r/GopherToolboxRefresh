@@ -16,11 +16,10 @@ namespace GopherToolboxRefresh.ViewModels
 		[StringLength(100)]
 		public string Surname { get; set; } = string.Empty;
 
-		[Required]
 		[StringLength(50)]
-		public string Nickname { get; set; } = string.Empty;
+		public string? Nickname { get; set; } = string.Empty;
 
-		[Required]
+        [Required]
 		[DataType(DataType.Date)]
 		public DateTime Birthdate { get; set; }
 
@@ -28,8 +27,6 @@ namespace GopherToolboxRefresh.ViewModels
 		[EmailAddress]
 		public string Email { get; set; } = string.Empty;
 
-		[Required]
-		[Phone]
 		public string Phone { get; set; } = string.Empty;
 
 		[Required]
@@ -42,8 +39,5 @@ namespace GopherToolboxRefresh.ViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = string.Empty;
-
-		[Required]
-		public bool IsAdmin { get; set; } = false;
 	}
 }

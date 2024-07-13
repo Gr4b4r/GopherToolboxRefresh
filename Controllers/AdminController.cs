@@ -197,5 +197,23 @@ namespace GopherToolboxRefresh.Controllers
 			var user = _context.Users.ToList();
 			return View(user);
 		}
+
+		public IActionResult RegisterUser()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> RegisterUser(User user)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Add(user);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(user);
+		}
 	}
 }

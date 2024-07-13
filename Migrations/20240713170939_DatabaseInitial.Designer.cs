@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Projekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240713135852_SQLStructuresChange")]
-    partial class SQLStructuresChange
+    [Migration("20240713170939_DatabaseInitial")]
+    partial class DatabaseInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -413,10 +413,11 @@ namespace Projekt.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nickname")
-                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
@@ -445,6 +446,7 @@ namespace Projekt.Migrations
 
                     b.Property<string>("Surname")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -485,7 +487,7 @@ namespace Projekt.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Userdatas");
+                    b.ToTable("Userdata");
                 });
 
             modelBuilder.Entity("GopherToolboxRefresh.Models.CancelRequest", b =>

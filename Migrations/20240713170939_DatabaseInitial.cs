@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class AddHoursAndMinutes : Migration
+    public partial class DatabaseInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,11 @@ namespace Projekt.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Surname = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Nickname = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Birthdate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -214,14 +219,14 @@ namespace Projekt.Migrations
                 name: "Userdata",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserDataId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
                     QuestId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Userdata", x => x.Id);
+                    table.PrimaryKey("PK_Userdata", x => x.UserDataId);
                     table.ForeignKey(
                         name: "FK_Userdata_AspNetUsers_UserId",
                         column: x => x.UserId,

@@ -103,7 +103,8 @@ async Task SeedRolesAndAdminUser(IHost app)
                 EmailConfirmed = true,
                 Name = "Administrator",
                 Surname = "Global",
-                Birthdate = new DateTime(1990, 1, 1)
+                Birthdate = new DateTime(1990, 1, 1),
+                Phone = "123456789"
             };
             var result = await userManager.CreateAsync(adminUser, "Admin123!@#");
             if (result.Succeeded)
