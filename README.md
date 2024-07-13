@@ -92,6 +92,7 @@ Autor: Gr4b4r, AcuDuk
   - **Parametry**: `id` (string)
   - **Opis**: Wyświetla formularz edycji użytkownika na podstawie przekazanego `id`.
   - **Zwracane dane**: Widok `EditUser`
+    **UWAGA** Zmiana roli wymaga wylogowania użytkownika i ponownego zalogowania! To samo tyczy się zmiany hasła!
 
 - **POST EditUser**: Aktualizuje dane użytkownika.
   - **Metoda HTTP**: POST
