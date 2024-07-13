@@ -3,6 +3,7 @@ using System;
 using GopherToolboxRefresh.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Projekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240713134828_struckturechange")]
+    partial class struckturechange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
@@ -388,9 +391,6 @@ namespace Projekt.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Birthdate")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
@@ -408,14 +408,6 @@ namespace Projekt.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nickname")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -427,10 +419,6 @@ namespace Projekt.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 
@@ -438,10 +426,6 @@ namespace Projekt.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -465,7 +449,7 @@ namespace Projekt.Migrations
 
             modelBuilder.Entity("Userdata", b =>
                 {
-                    b.Property<int>("UserDataId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -476,7 +460,7 @@ namespace Projekt.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("UserDataId");
+                    b.HasKey("Id");
 
                     b.HasIndex("QuestId");
 

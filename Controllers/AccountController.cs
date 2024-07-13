@@ -85,7 +85,7 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = new User { UserName = model.Email, Email = model.Email };
+            var user = new User { UserName = model.Email, Email = model.Email, Nickname = model.Nickname, Surname = model.Surname, Name = model.Name, Phone = model.Phone, Birthdate = model.Birthdate };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {

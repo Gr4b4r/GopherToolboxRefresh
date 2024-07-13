@@ -194,8 +194,8 @@ namespace GopherToolboxRefresh.Controllers
 
 		public IActionResult UserManagement()
 		{
-			var users = _context.Users.ToList();
-			return View(users);
+			var user = _context.Users.ToList();
+			return View(user);
 		}
 	}
 }

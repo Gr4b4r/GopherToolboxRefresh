@@ -1,7 +1,8 @@
-﻿
+﻿@using GopherToolboxRefresh.Models
+@model IEnumerable<User>
 
 @{
-	
+	ViewData["Title"] = "Zarządzanie użytkownikami";
 }
 
 <h1>Zarządzanie użytkownikami</h1>
@@ -21,19 +22,19 @@
 			</tr>
 		</thead>
 		<tbody>
-		
+			@foreach (var user in Model)
 			{
 				<tr>
-					<td>item.Id</td>
-					<td>item.Name</td>
-					<td>item.Nickname</td>
-					<td>item.Surname</td>
-					<td>item.Birthdate</td>
-					<td>item.Email</td>
-					<td>item.Phone</td>
+					<td>@user.Id</td>
+					<td>@user.UserName</td>
+					<td>@user.Nickname</td>
+					<td>@user.Surname</td>
+					<td>@user.Birthdate</td>
+					<td>@user.Email</td>
+					<td>@user.Phone</td>
 					<td width="156px;">
-						<a asp-action="EditUser" asp-route-id="item.Id" class="btn btn-warning">Edytuj</a>
-					<a asp-action="RemoveUser" asp-route-id="item.Id" class="btn btn-danger">Usuń</a>
+						<a asp-action="EditUser" asp-route-id="user.Id" class="btn btn-warning">Edytuj</a>
+					<a asp-action="RemoveUser" asp-route-id="user.Id" class="btn btn-danger">Usuń</a>
 					</td>
 				</tr>
 			}

@@ -16,6 +16,7 @@ namespace GopherToolboxRefresh.Data
 		public DbSet<CancelRequest> CancelRequests { get; set; }
 
 
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

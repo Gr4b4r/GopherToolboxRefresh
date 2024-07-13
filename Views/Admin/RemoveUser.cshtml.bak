@@ -1,7 +1,7 @@
-﻿@model GopherToolboxRefresh.Models.UserModel
+﻿@model GopherToolboxRefresh.Models.User
 
 @{
-    
+	ViewData["Title"] = "Zarządzanie użytkownikami";
 }
 
 <h1>Delete Quest</h1>

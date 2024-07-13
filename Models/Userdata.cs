@@ -2,7 +2,8 @@
 using GopherToolboxRefresh.Models;
 public class Userdata
 {
-    public int Id { get; set; }
+    [Key]
+    public int UserDataId { get; set; }
 
     [Required]
     public string UserId { get; set; } = string.Empty;
