@@ -11,7 +11,7 @@ Aplikacja stworzona jako multikonwentowe centrum zarządzania Questami przez i w
 Autor: Karol "Gr4b4r" Grabarczyk, Krzysztof "AcuDuk" Dudek
 
 ## Specyfikacja technologii
-- **Backend**: C# .NET 6.0
+- **Backend**: C# .NET 8.0
 - **Baza danych**: SQLite
 - **IDE**: Visual Studio 2022
 
