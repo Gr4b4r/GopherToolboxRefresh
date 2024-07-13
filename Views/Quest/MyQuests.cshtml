@@ -40,7 +40,7 @@ else
 									<span class="text-success">Aktywne zadanie</span>
 								}
 							</p>
-							@if (!item.IsCanceled && !item.CancellationRequested)
+							@if (!item.IsCanceled && !item.CancellationRequested || item.QuestDateEnd >= DateTime.Now.AddHours(1))
 							{
 								<form asp-action="RequestCancellation" method="post">
 									<input type="hidden" name="id" value="@item.Id" />
