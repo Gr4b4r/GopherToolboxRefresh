@@ -15,9 +15,10 @@
 				<p><strong>Imię:</strong> @Model.Name</p>
 				<p><strong>Nazwisko:</strong> @Model.Surname<br></p>
 				<p><strong>Ksywka:</strong> @Model.Nickname<br></p>
-				<p><strong>Data urodzenia:</strong> @Model.Birthdate<br></p>
+				<p><strong>Data urodzenia:</strong> @Model.Birthdate.ToShortDateString()<br></p>
 				<p><strong>Email:</strong> @Model.Email<br></p>
 				<p><strong>Telefon kontaktowy:</strong> @Model.Phone<br /></p>
+				<p><strong>Rola:</strong></p>
 			</div>
 		</div>
         <hr />

@@ -10,6 +10,7 @@ using GopherToolboxRefresh.ViewModels;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Runtime.ConstrainedExecution;
 
 namespace GopherToolboxRefresh.Controllers
 {
@@ -226,6 +227,7 @@ namespace GopherToolboxRefresh.Controllers
 					Nickname = model.Nickname,
                     Birthdate = model.Birthdate,
                     Phone = model.Phone,
+					Rola = model.Rola,
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -264,13 +266,13 @@ namespace GopherToolboxRefresh.Controllers
 			var model = new EditUserViewModel
 			{
 				Id = user.Id,
-				UserName = user.UserName,
 				Email = user.Email,
 				Name = user.Name,
 				Surname = user.Surname,
 				Nickname = user.Nickname,
 				Birthdate = user.Birthdate,
-				Phone = user.Phone
+				Phone = user.Phone,
+				Rola = user.Rola
 			};
 
 			return View(model);
@@ -291,13 +293,13 @@ namespace GopherToolboxRefresh.Controllers
 				return NotFound();
 			}
 
-			user.UserName = model.UserName;
 			user.Email = model.Email;
 			user.Name = model.Name;
 			user.Surname = model.Surname;
 			user.Nickname = model.Nickname;
 			user.Birthdate = model.Birthdate;
 			user.Phone = model.Phone;
+			user.Rola = model.Rola;
 
 			var result = await _userManager.UpdateAsync(user);
 
@@ -315,7 +317,17 @@ namespace GopherToolboxRefresh.Controllers
 					return View(model);
 				}
 			}
-			if (result.Succeeded)
+			await _userManager.RemoveFromRoleAsync(user, "Admin");
+			await _userManager.RemoveFromRoleAsync(user, "Uzytkownik");			
+			var roleResult = await _userManager.AddToRoleAsync(user, model.Rola);
+			if (!roleResult.Succeeded)
+			{
+				foreach (var error in roleResult.Errors)
+				{
+					ModelState.AddModelError("", error.Description);
+				}
+			}
+			if (result.Succeeded && roleResult.Succeeded)
 			{
 				return RedirectToAction("UserManagement");
 			}
@@ -345,13 +357,13 @@ namespace GopherToolboxRefresh.Controllers
 			var model = new EditUserViewModel
 			{
 				Id = user.Id,
-				UserName = user.UserName,
 				Email = user.Email,
 				Name = user.Name,
 				Surname = user.Surname,
 				Nickname = user.Nickname,
 				Birthdate = user.Birthdate,
-				Phone = user.Phone
+				Phone = user.Phone,
+				Rola = user.Rola,
 			};
 			return View(model);
 		}
@@ -370,7 +382,6 @@ namespace GopherToolboxRefresh.Controllers
             {
                 return RedirectToAction(nameof(UserManagement));
             }
-            return NotFound();
 
 			var result = await _userManager.DeleteAsync(user);
 			if (result.Succeeded)
@@ -392,16 +403,17 @@ namespace GopherToolboxRefresh.Controllers
 			{
 				return NotFound();
 			}
+			var role = _userManager.GetRolesAsync;
 			var model = new EditUserViewModel
 			{
 				Id = user.Id,
-				UserName = user.UserName,
 				Email = user.Email,
 				Name = user.Name,
 				Surname = user.Surname,
 				Nickname = user.Nickname,
 				Birthdate = user.Birthdate,
-				Phone = user.Phone
+				Phone = user.Phone,
+				Rola = user.Rola,
 			};
 			return View(model);
 		}

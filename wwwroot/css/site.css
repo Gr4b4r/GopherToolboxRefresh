@@ -130,24 +130,10 @@ body {
 	color:black;
 }
 
-//Dropdown menu
-
 .dropdownMenu {
-	transition: 0.3s;
-	font-size: 20px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	border-radius: 0px;
 	display: inline;
 	flex-grow: 1;
 	flex-shrink: 1;
-	text-align: center;
-	&:hover
-	{
-	transition: 0.3s;
-	color: #fff5f5;
-	border-radius: 10px;
-	}
 }
 
 .dropdownContent {
