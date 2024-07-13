@@ -27,8 +27,8 @@ Przejdź do /Account/Login
 Wypełnij formularz logowania i wyślij
 
 ## Konto Administracyjne
-- login: admin@tgies.pl
-- hasło: H4$l0d0K0nt4A4m1n4
+- login: admin@admin.pl
+- hasło: Admin123!@#
 **Ważne**
 - Aplikacja będzie dostępna pod adresem 'http://localhost:7064'
 ## Wymagania systemowe

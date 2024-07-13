@@ -15,7 +15,7 @@ namespace Projekt.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.7");
 
             modelBuilder.Entity("GopherToolboxRefresh.Models.CancelRequest", b =>
                 {
@@ -122,11 +122,11 @@ namespace Projekt.Migrations
                             Address = "Międzynarodowe Targi Poznańskie, Głogowska 4, Poznań",
                             City = "Poznań",
                             CurrentOccupiedSlots = 0,
-                            Description = "Quest polega na zajmowaniu się dziecmi w wieku poniżej 13 roku życia. Jako główne cechy oczekujemy, rzyczliwości i umiejętności opeki nad najmłodzymi uczestnikami konwentu :)",
+                            Description = "Quest polega na zajmowaniu się dziećmi w wieku poniżej 13 roku życia. Jako główne cechy oczekujemy, życzliwości i umiejętności opieki nad najmłodszymi uczestnikami konwentu :)",
                             ImageUrl = "/images/1.jpg",
                             Name = "Pyrkon - Bejbiczki",
-                            QuestDateEnd = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2025, 6, 15, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2025, 6, 13, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 20
                         },
                         new
@@ -138,8 +138,8 @@ namespace Projekt.Migrations
                             Description = "Quest polega na udzielaniu pomocy gościom oraz prowadzącym sesje RPG",
                             ImageUrl = "/images/1.jpg",
                             Name = "Pyrkon - RPG",
-                            QuestDateEnd = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2025, 6, 15, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2025, 6, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 40
                         },
                         new
@@ -151,8 +151,8 @@ namespace Projekt.Migrations
                             Description = "Quest polega na wypożyczaniu oraz odbieraniu gier w wypożyczalni. Wymagamy podstawowej wiedzy z zakresu gier planszowych oraz chęci do nauki nowych gier.",
                             ImageUrl = "/images/1.jpg",
                             Name = "Pyrkon - Wypożyczalnia",
-                            QuestDateEnd = new DateTime(2025, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2025, 6, 15, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2025, 6, 12, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 30
                         },
                         new
@@ -164,8 +164,8 @@ namespace Projekt.Migrations
                             Description = "Opieka nad sceną, czyli pomoc występującym, szybkie sprzątanie pomiędzy występami",
                             ImageUrl = "/images/2.jpg",
                             Name = "AnimeCon - Opieka Sceny",
-                            QuestDateEnd = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2024, 10, 31, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2024, 10, 31, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 10
                         },
                         new
@@ -177,8 +177,8 @@ namespace Projekt.Migrations
                             Description = "Prowadzenie akry",
                             ImageUrl = "/images/2.jpg",
                             Name = "AnimeCon - Akra",
-                            QuestDateEnd = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 10, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2024, 10, 31, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2024, 10, 31, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 5
                         },
                         new
@@ -190,8 +190,8 @@ namespace Projekt.Migrations
                             Description = "Zajmowanie się terenem plenerowym aby były na bierząco dostarczane przedmioty do prowadzących",
                             ImageUrl = "/images/3.png",
                             Name = "Hikari - Plener",
-                            QuestDateEnd = new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2024, 8, 18, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2024, 8, 16, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 15
                         },
                         new
@@ -203,8 +203,8 @@ namespace Projekt.Migrations
                             Description = "Administracja sceną, wpuszczanie oraz informowanie o zejscu ze sceny",
                             ImageUrl = "/images/3.png",
                             Name = "Hikari - Scena",
-                            QuestDateEnd = new DateTime(2024, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2024, 8, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2024, 8, 18, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2024, 8, 16, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 10
                         },
                         new
@@ -216,8 +216,8 @@ namespace Projekt.Migrations
                             Description = "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze",
                             ImageUrl = "/images/4.png",
                             Name = "Gdakon - Wsparcie ZTM Hotel",
-                            QuestDateEnd = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2025, 3, 1, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2025, 2, 23, 8, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 5
                         },
                         new
@@ -229,8 +229,8 @@ namespace Projekt.Migrations
                             Description = "Pomoc pracownikom ZTM Gdańsk przy ładowaniu oraz rozładowaniu pasażerów, podróżujących pomiędzy Hotelem a eventem w Plenerze",
                             ImageUrl = "/images/4.png",
                             Name = "Gdakon - Wsparcie ZTM Plener",
-                            QuestDateEnd = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2025, 2, 28, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2025, 2, 23, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 5
                         },
                         new
@@ -242,8 +242,8 @@ namespace Projekt.Migrations
                             Description = "Prowadzenie akredytacji oraz pomoc przy odbiorach identyfikatorów",
                             ImageUrl = "/images/4.png",
                             Name = "Gdakon - Akredytacja",
-                            QuestDateEnd = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuestDateStart = new DateTime(2025, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateEnd = new DateTime(2025, 2, 28, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            QuestDateStart = new DateTime(2025, 2, 23, 10, 0, 0, 0, DateTimeKind.Unspecified),
                             SlotLimit = 10
                         });
                 });

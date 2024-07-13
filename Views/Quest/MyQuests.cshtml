@@ -1,53 +1,56 @@
 ﻿@model IEnumerable<GopherToolboxRefresh.Models.Order>
 
 @{
-	ViewData["Title"] = "Moje Zadania";
+	ViewData["Title"] = "Moje Questy";
 }
 
-<h1>Moje Zadania</h1>
+<h1>Moje Questy</h1>
 
 @if (!Model.Any())
 {
-	<p>Nie masz żadnych zadań.</p>
+	<p>Nie masz żadnych podjętych Questów.</p>
 }
 else
 {
 	<div class="row">
 		@foreach (var item in Model)
 		{
-			<div class="col-md-4">
-				<div class="card mb-4">
-					<div class="card-body">
-						<h4 class="card-title">@item.Quest.Name</h4>
-						<p class="card-text">
-							<strong>Miasto:</strong> @item.Quest.City<br />
-							<strong>Adres:</strong> @item.Quest.Address<br>
-							<strong>Data rozpoczęcia zadania:</strong> @item.QuestDateStart.ToShortDateString()<br>
-							<strong>Data zakończenia zadania:</strong> @item.QuestDateEnd.ToShortDateString()<br>
-							<strong>Status:</strong>
-							@if (item.IsCanceled)
+			@if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
+			{
+				<div class="col-md-4">
+					<div class="card mb-4">
+						<div class="card-body">
+							<h4 class="card-title">@item.Quest.Name</h4>
+							<p class="card-text">
+								<strong>Miasto:</strong> @item.Quest.City<br />
+								<strong>Adres:</strong> @item.Quest.Address<br>
+								<strong>Data rozpoczęcia zadania:</strong> @item.QuestDateStart.ToShortDateString()<br>
+								<strong>Data zakończenia zadania:</strong> @item.QuestDateEnd.ToShortDateString()<br>
+								<strong>Status:</strong>
+								@if (item.IsCanceled)
+								{
+									<span class="text-danger">Anulowane</span>
+								}
+								else if (item.CancellationRequested)
+								{
+									<span class="text-warning">Oczekuje</span>
+								}
+								else
+								{
+									<span class="text-success">Aktywne zadanie</span>
+								}
+							</p>
+							@if (!item.IsCanceled && !item.CancellationRequested)
 							{
-								<span class="text-danger">Anulowane</span>
+								<form asp-action="RequestCancellation" method="post">
+									<input type="hidden" name="id" value="@item.Id" />
+									<button type="submit" class="btn btn-warning">Prośba o anulowanie</button>
+								</form>
 							}
-							else if (item.CancellationRequested)
-							{
-								<span class="text-warning">Oczekuje</span>
-							}
-							else
-							{
-								<span class="text-success">Aktywne zadanie</span>
-							}
-						</p>
-						@if (!item.IsCanceled && !item.CancellationRequested)
-						{
-							<form asp-action="RequestCancellation" method="post">
-								<input type="hidden" name="id" value="@item.Id" />
-								<button type="submit" class="btn btn-warning">Prośba o anulowanie</button>
-							</form>
-						}
+						</div>
 					</div>
 				</div>
-			</div>
+			}
 		}
 	</div>
 }

@@ -17,15 +17,18 @@ namespace GopherToolboxRefresh.Models
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{dd MMM yyyy}")]
+		[DataType(DataType.DateTime)]
         public DateTime QuestDateStart { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
+
+		[Required]
+		[DisplayFormat(DataFormatString = "{dd MMM yyyy}")]
+		[DataType(DataType.DateTime)]
         [EndDateAfterStartDate("QuestDateStart")]
         public DateTime QuestDateEnd { get; set; }
 
-        [Required]
+		[Required]
         public string Description { get; set; } = string.Empty;
         public string? ImageUrl { get; set; }  // Nullable
 

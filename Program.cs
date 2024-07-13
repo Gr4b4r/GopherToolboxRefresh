@@ -93,16 +93,16 @@ async Task SeedRolesAndAdminUser(IHost app)
         }
 
         // Ensure the Admin user exists and is assigned the Admin role
-        var adminUser = await userManager.FindByEmailAsync("admin@tgies.pl");
+        var adminUser = await userManager.FindByEmailAsync("admin@admin.pl");
         if (adminUser == null)
         {
             adminUser = new User
             {
-                UserName = "admin@tgies.pl",
-                Email = "admin@tgies.pl",
+                UserName = "admin@admin.pl",
+                Email = "admin@admin.pl",
                 EmailConfirmed = true
             };
-            var result = await userManager.CreateAsync(adminUser, "H4$l0d0K0nt4A4m1n4");
+            var result = await userManager.CreateAsync(adminUser, "Admin123!@#");
             if (result.Succeeded)
             {
                 var roleResult = await userManager.AddToRoleAsync(adminUser, "Admin");

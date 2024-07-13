@@ -24,19 +24,22 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.Name</td>
-                    <td>@item.City</td>
-                    <td>@item.Address</td>
-                    <td>@item.QuestDateStart.ToShortDateString()</td>
-                    <td>@item.QuestDateEnd.ToShortDateString()</td>
-                    <td>@item.SlotLimit</td>
-                    <td width="260px;">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Usuń</a>
-                    </td>
-                </tr>
+                @if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.City</td>
+                        <td>@item.Address</td>
+                        <td>@item.QuestDateStart.ToShortDateString()</td>
+                        <td>@item.QuestDateEnd.ToShortDateString()</td>
+                        <td>@item.SlotLimit</td>
+                        <td width="260px;">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Usuń</a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>

@@ -22,7 +22,7 @@
     <div class="card-body">
         <h4 class="card-title">Quest</h4>
         <hr />
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Nazwa</label>
                 <input asp-for="Name" class="form-control" />
@@ -86,7 +86,7 @@
             var endDate = new Date(document.querySelector('[name="QuestDateEnd"]').value);
             if (endDate < startDate) {
                 event.preventDefault();
-                alert('The end date must be later than the start date.');
+                alert('Data zakończenia eventu musi być później jak data rozpoczęcia.');
             }
         });
     </script>

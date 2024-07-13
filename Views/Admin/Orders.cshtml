@@ -19,8 +19,8 @@ else
 					<th>Nazwa Questa</th>
 					<th>Użytkownik</th>
 					<th>Miejsce</th>
-					<th>Data Prośby</th>
-					<th>Akcja</th>
+					<th>Data podjęcia</th>
+					<th>Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,20 +31,27 @@ else
 					<td>@item.User?.Email</td>
 					<td>@item.Quest.Address</td>
 					<td>@item.OrderDate.ToShortDateString()</td>
-					@if (item.CancellationRequested)
+					@if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
 					{
-						@if (item.IsCanceled)
+						@if (item.CancellationRequested)
 						{
-							<td class="text-danger">Anulowane</td>
+							@if (item.IsCanceled)
+							{
+								<td class="text-danger">Anulowane</td>
+							}
+							else
+							{
+								<td class="text-warning">Wysłana prośba o anulowanie</td>
+							}
 						}
 						else
 						{
-							<td class="text-warning">Wysłana prośba o anulowanie</td>
+							<td class="text-success">Przyjęte zgłoszenie</td>
+							}
 						}
-					}
 					else
 					{
-						<td class="text-success">Przyjęte zgłoszenie</td>
+						<td class="text-success">Quest zakończony</td>
 					}
 				</tr>
 			}

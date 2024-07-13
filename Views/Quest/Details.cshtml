@@ -1,11 +1,10 @@
 ﻿@model GopherToolboxRefresh.Models.Quest
 
 @{
-	ViewData["Title"] = "Szczegóły Zadania";
+	ViewData["Title"] = "Szczegóły Questa";
 	var activeQuestsCount = Model.UserQuests.Count(uq => !uq.IsCanceled);
 }
 
-<h1>@Model.Name</h1>
 <div class="card">
 	<div class="card-body">
 		<h1 class="card-title">@Model.Name</h1>
@@ -16,8 +15,10 @@
 			<div class="quest-info card-text">
 				<p><strong>Miasto:</strong> @Model.City</p>
 				<p><strong>Adres:</strong> @Model.Address</p>
-				<p><strong>Data rozpoczęcia zadania:</strong> @Model.QuestDateStart.ToShortDateString()<br></p>
+				<p><strong>Data rozpoczęcia Questa:</strong> @Model.QuestDateStart.ToShortDateString()<br></p>
+				<p><strong>Godzina rozpoczęcia:</strong> @Model.QuestDateStart.ToString("HH:mm")<br></p>
 				<p><strong>Data zakończenia zadania:</strong> @Model.QuestDateEnd.ToShortDateString()<br></p>
+				<p><strong>Godzina zakończenia:</strong> @Model.QuestDateEnd.ToString("HH:mm")<br></p>
 				<p><strong>Ilość miejsc:</strong> @Model.CurrentOccupiedSlots / @Model.SlotLimit <br /></p>
 				<p>@Model.Description</p>
 				@if (activeQuestsCount < Model.SlotLimit && !Model.UserQuests.Any(uq => !uq.IsCanceled))
