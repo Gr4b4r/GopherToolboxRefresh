@@ -8,7 +8,7 @@ Administrator ma możliwość dodawania, edytowania i usuwania Questów, a takż
 Aplikacja stworzona jako multikonwentowe centrum zarządzania Questami przez i w trakcie eventu.
 
 ## Autorzy
-Autor: Gr4b4r, AcuDuk
+Autor: Karol "Gr4b4r" Grabarczyk, Krzysztof "AcuDuk" Dudek
 
 ## Specyfikacja technologii
 - **Backend**: C# .NET 6.0
