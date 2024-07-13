@@ -1,0 +1,27 @@
+﻿@model GopherToolboxRefresh.ViewModels.EditUserViewModel;
+
+@{
+    ViewData["Title"] = "Szczegóły";
+}
+
+<h1>@Model.Nickname</h1>
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="card-title">@Model.Name</h1>
+		<div class="quest-details">
+			<div class="quest-info card-text">
+				<p><strong>ID:</strong> @Model.Id</p>
+				<p><strong>Imię:</strong> @Model.Name</p>
+				<p><strong>Nazwisko:</strong> @Model.Surname<br></p>
+				<p><strong>Ksywka:</strong> @Model.Nickname<br></p>
+				<p><strong>Data urodzenia:</strong> @Model.Birthdate<br></p>
+				<p><strong>Email:</strong> @Model.Email<br></p>
+				<p><strong>Telefon kontaktowy:</strong> @Model.Phone<br /></p>
+			</div>
+		</div>
+        <hr />
+        <a asp-action="EditUser" asp-route-id="@Model.Id" class="btn btn-warning">Edytuj</a>
+        <a asp-action="UserManagement" class="btn btn-secondary">Powrót do listy</a>
+    </div>
+</div>

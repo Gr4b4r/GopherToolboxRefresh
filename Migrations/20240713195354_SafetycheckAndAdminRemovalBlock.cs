@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class DatabaseInitial : Migration
+    public partial class SafetycheckAndAdminRemovalBlock : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,6 +37,7 @@ namespace Projekt.Migrations
                     Nickname = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     Birthdate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Phone = table.Column<string>(type: "TEXT", nullable: false),
+                    Rola = table.Column<string>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),

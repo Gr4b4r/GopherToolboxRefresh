@@ -32,7 +32,7 @@
                         <td>@item.Address</td>
                         <td>@item.QuestDateStart.ToShortDateString()</td>
                         <td>@item.QuestDateEnd.ToShortDateString()</td>
-                        <td>@item.SlotLimit</td>
+                        <td>@item.CurrentOccupiedSlots / @item.SlotLimit</td>
                         <td width="260px;">
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>

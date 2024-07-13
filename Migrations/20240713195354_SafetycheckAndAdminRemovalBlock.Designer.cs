@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Projekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240713170939_DatabaseInitial")]
-    partial class DatabaseInitial
+    [Migration("20240713195354_SafetycheckAndAdminRemovalBlock")]
+    partial class SafetycheckAndAdminRemovalBlock
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -440,6 +440,10 @@ namespace Projekt.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Rola")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");

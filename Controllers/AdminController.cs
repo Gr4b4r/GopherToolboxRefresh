@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using GopherToolboxRefresh.ViewModels;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace GopherToolboxRefresh.Controllers
 {
@@ -205,15 +206,204 @@ namespace GopherToolboxRefresh.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> RegisterUser(User user)
+		public async Task<IActionResult> RegisterUser(RegisterViewModel model)
 		{
-			if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                user = new User
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    EmailConfirmed = true,
+                    Name = model.Name,
+                    Surname = model.Surname,
+					Nickname = model.Nickname,
+                    Birthdate = model.Birthdate,
+                    Phone = model.Phone,
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var roleResult = await _userManager.AddToRoleAsync(user, model.Rola);
+                    if (!roleResult.Succeeded)
+                    {
+                        foreach (var error in roleResult.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                    }
+                    return RedirectToAction("UserManagement");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+					return View(model);
+                }
+
+            }
+            return RedirectToAction("UserManagement");
+        }
+
+		public async Task<IActionResult> EditUser(string id)
+		{
+			var user = await _userManager.FindByIdAsync(id);
+			if (user == null)
 			{
-				_context.Add(user);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
+				return NotFound();
+			}
+
+			var model = new EditUserViewModel
+			{
+				Id = user.Id,
+				UserName = user.UserName,
+				Email = user.Email,
+				Name = user.Name,
+				Surname = user.Surname,
+				Nickname = user.Nickname,
+				Birthdate = user.Birthdate,
+				Phone = user.Phone
+			};
+
+			return View(model);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> EditUser(EditUserViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			var user = await _userManager.FindByIdAsync(model.Id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			user.UserName = model.UserName;
+			user.Email = model.Email;
+			user.Name = model.Name;
+			user.Surname = model.Surname;
+			user.Nickname = model.Nickname;
+			user.Birthdate = model.Birthdate;
+			user.Phone = model.Phone;
+
+			var result = await _userManager.UpdateAsync(user);
+
+			if (!string.IsNullOrEmpty(model.Password))
+			{
+				var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+				var Passwordresult = await _userManager.ResetPasswordAsync(user, token, model.Password);
+
+				if (!Passwordresult.Succeeded)
+				{
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError("", error.Description);
+					}
+					return View(model);
+				}
+			}
+			if (result.Succeeded)
+			{
+				return RedirectToAction("UserManagement");
+			}
+
+			foreach (var error in result.Errors)
+			{
+				ModelState.AddModelError(string.Empty, error.Description);
+			}
+
+			return View(model);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> RemoveUser(string id)
+		{
+			var user = await _userManager.FindByIdAsync(id);
+			var globalAdmin = await _userManager.FindByEmailAsync("admin@admin.pl");
+			if (user == null)
+			{
+				return NotFound();
+			}
+			if (user == globalAdmin)
+			{
+                return RedirectToAction(nameof(UserManagement));
+            }
+
+			var model = new EditUserViewModel
+			{
+				Id = user.Id,
+				UserName = user.UserName,
+				Email = user.Email,
+				Name = user.Name,
+				Surname = user.Surname,
+				Nickname = user.Nickname,
+				Birthdate = user.Birthdate,
+				Phone = user.Phone
+			};
+			return View(model);
+		}
+
+		[HttpPost, ActionName("RemoveUser")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> RemoveUserConfirmed(string id)
+		{
+			var user = await _userManager.FindByIdAsync(id);
+			var globalAdmin = await _userManager.FindByEmailAsync("admin@admin.pl");
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (user == globalAdmin)
+            {
+                return RedirectToAction(nameof(UserManagement));
+            }
+            return NotFound();
+
+			var result = await _userManager.DeleteAsync(user);
+			if (result.Succeeded)
+			{
+				return RedirectToAction(nameof(UserManagement));
+			}
+			foreach (var error in result.Errors)
+			{
+				ModelState.AddModelError(string.Empty, error.Description);
 			}
 			return View(user);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> UserDetails(string id)
+		{
+			var user = await _userManager.FindByIdAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+			var model = new EditUserViewModel
+			{
+				Id = user.Id,
+				UserName = user.UserName,
+				Email = user.Email,
+				Name = user.Name,
+				Surname = user.Surname,
+				Nickname = user.Nickname,
+				Birthdate = user.Birthdate,
+				Phone = user.Phone
+			};
+			return View(model);
 		}
 	}
 }

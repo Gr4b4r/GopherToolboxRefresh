@@ -18,5 +18,6 @@ public class User : IdentityUser
     [DataType(DataType.Date)]
 	public DateTime Birthdate { get; set; }
 	public string Phone { get; set; } = string.Empty;
+    public string Rola { get; set; } = string.Empty;
 }
 

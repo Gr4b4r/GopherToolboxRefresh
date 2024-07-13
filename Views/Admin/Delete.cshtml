@@ -1,40 +1,32 @@
 ﻿@model GopherToolboxRefresh.Models.Quest
 
 @{
-    ViewData["Title"] = "Delete Quest";
+	ViewData["Title"] = "Usuń Quest";
 }
 
-<h1>Delete Quest</h1>
-<div class="card adminSets">
-    <h3>Jesteś pewien że chcesz usunąć poniższy wpis?</h3>
-    <div>
-        <h4>Quest</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.City)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.City)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Address)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Address)
-            </dd>
-        </dl>
-
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Usuń" class="btn btn-danger" /> |
-            <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
-        </form>
-    </div>
+<div class="card">
+	<div class="card-body">
+		<h1 class="card-title">@Model.Name</h1>
+		<div class="quest-details">
+			<div class="quest-image">
+				<img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+			</div>
+			<div class="quest-info card-text">
+				<p><strong>Miasto:</strong> @Model.City</p>
+				<p><strong>Adres:</strong> @Model.Address</p>
+				<p><strong>Data rozpoczęcia Questa:</strong> @Model.QuestDateStart.ToShortDateString()<br></p>
+				<p><strong>Godzina rozpoczęcia:</strong> @Model.QuestDateStart.ToString("HH:mm")<br></p>
+				<p><strong>Data zakończenia zadania:</strong> @Model.QuestDateEnd.ToShortDateString()<br></p>
+				<p><strong>Godzina zakończenia:</strong> @Model.QuestDateEnd.ToString("HH:mm")<br></p>
+				<p><strong>Ilość miejsc:</strong> @Model.CurrentOccupiedSlots / @Model.SlotLimit <br /></p>
+				<p>@Model.Description</p>
+			</div>
+		</div>
+		<hr />
+		<form asp-action="Delete">
+			<input type="hidden" asp-for="Id" />
+			<input type="submit" value="Usuń" class="btn btn-danger" />
+			<a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+		</form>
+	</div>
 </div>
