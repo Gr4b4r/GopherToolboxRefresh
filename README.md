@@ -197,6 +197,7 @@ Autor: Karol "Gr4b4r" Grabarczyk, Krzysztof "AcuDuk" Dudek
 
 - **Login**: admin@admin.pl
 - **Hasło**: Admin123!@#
+- Jest to stały użytkownik, nie idzie go zmodyfikować i usunąć
 
 ### Funkcje administratora:
 
@@ -223,4 +224,3 @@ Autor: Karol "Gr4b4r" Grabarczyk, Krzysztof "AcuDuk" Dudek
 
 ## Link do repozytorium
 [https://github.com/Gr4b4r/GopherToolboxRefresh](https://github.com/Gr4b4r/GopherToolboxRefresh)
-"""
