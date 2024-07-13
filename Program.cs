@@ -92,10 +92,10 @@ async Task SeedRolesAndAdminUser(IHost app)
             await roleManager.CreateAsync(new IdentityRole("Admin"));
         }
 
-        var userRoleExists = await roleManager.RoleExistsAsync("U¿ytkownik");
+        var userRoleExists = await roleManager.RoleExistsAsync("Uzytkownik");
         if (!userRoleExists)
         {
-            await roleManager.CreateAsync(new IdentityRole("U¿ytkownik"));
+            await roleManager.CreateAsync(new IdentityRole("Uzytkownik"));
         }
 
         // Ensure the Admin user exists and is assigned the Admin role

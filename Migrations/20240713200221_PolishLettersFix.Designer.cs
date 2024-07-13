@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Projekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240713195354_SafetycheckAndAdminRemovalBlock")]
-    partial class SafetycheckAndAdminRemovalBlock
+    [Migration("20240713200221_PolishLettersFix")]
+    partial class PolishLettersFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
