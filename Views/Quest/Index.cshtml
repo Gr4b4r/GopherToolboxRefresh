@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GopherToolboxRefresh.Models.Quest>
+@model IEnumerable<GopherToolboxRefresh.Models.Quest>
 
 @{
 	ViewData["Title"] = "Lista Questów";
@@ -6,9 +6,9 @@
 
 <h1>Lista Questów</h1>
 <form asp-controller="Quest" asp-action="Index">
-	<p>
-		Wyszukaj Quest: <input type="text" name="SearchString" />
-		<input type="submit" value="Filter" />
+	<p class="szukajka_box">
+		<input placeholder="Wyszukaj Quest:" class="szukajka" type="text" name="SearchString" />
+		<input class="btn btn-primary" type="submit" value="Wyszukaj!" />
 	</p>
 </form>
 <div class="row">
