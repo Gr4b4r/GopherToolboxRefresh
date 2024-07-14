@@ -144,30 +144,9 @@ namespace GopherToolboxRefresh.Controllers
 
 			if (ModelState.IsValid)
 			{
-				try
-				{
-					var existingQuest = await _context.Quests.FindAsync(id);
-					if (existingQuest == null)
-					{
-						return NotFound();	
-					}
-
-					existingQuest.Name = quest.Name;
-					existingQuest.City = quest.City;
-					existingQuest.Address = quest.Address;
-					existingQuest.QuestDateStart = quest.QuestDateStart;
-					existingQuest.QuestDateEnd = quest.QuestDateEnd;
-					existingQuest.SlotLimit = quest.SlotLimit;
-					existingQuest.ImageUrl = quest.ImageUrl;
-					existingQuest.Description = quest.Description;
-
-					await _context.SaveChangesAsync();
-					return RedirectToAction(nameof(Index));
-				}
-				catch (DbUpdateConcurrencyException)
-				{
-					return NotFound();
-				}
+				_context.Update(quest);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
 			}
 			return View(quest);
 		}

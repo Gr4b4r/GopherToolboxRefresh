@@ -65,10 +65,6 @@
 					<ul class="navbar-nav">
 						@if (SignInManager.IsSignedIn(User))
 						{
-								var user = await UserManager.GetUserAsync(User);
-								<li class="nav-item">
-								<a class="nav-link" style="background-color: transparent;">@user.UserName</a>
-								</li>
 								<li class="nav-item">
 									<form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="form-inline">
 										<button type="submit" class="btn btn-link nav-link">Wyloguj</button>

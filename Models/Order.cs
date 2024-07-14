@@ -12,10 +12,10 @@ namespace GopherToolboxRefresh.Models
 		[Required]
         public int QuestId { get; set; }
         [ForeignKey("QuestId")]
-        public Quest Quest { get; set; }
+        public Quest Quest { get; set; } = null!;
 
         [Required]
-		public string UserId { get; set; }
+		public string UserId { get; set; } = string.Empty;
 
         [Required]
         public DateTime OrderDate { get; set; }
