@@ -9,8 +9,8 @@ public class Userdata
     public string UserId { get; set; } = string.Empty;
 
     [Required]
-    public User User { get; set; } = new User();
+    public User User { get; set; }
 
     [Required]
-    public Quest Quest { get; set; } = new Quest();
+    public Quest Quest { get; set; }
 }
