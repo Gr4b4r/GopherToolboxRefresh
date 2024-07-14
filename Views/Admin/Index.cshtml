@@ -4,44 +4,43 @@
     ViewData["Title"] = "Questy";
 }
 
+<h1>Questy</h1>
 
-<div class="card">
-    <div class="card-body adminSets">
-        <h2 class="card-title">Questy</h2>
-        <a asp-action="Create" class="btn btn-primary createButton">Stwórz nowego Questa</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Miasto</th>
-                    <th>Adress</th>
-                    <th>Data Startu</th>
-                    <th>Data Końca</th>
-                    <th>Ilość ludzi</th>
-                    <th>Akcje</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+<a asp-action="Create" class="btn btn-primary">Stwórz nowego Questa</a>
+
+<div class="card adminSets">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Miasto</th>
+                <th>Adress</th>
+                <th>Data Startu</th>
+                <th>Data Końca</th>
+                <th>Ilość ludzi</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
                 {
-                    @if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
-                    {
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.City</td>
-                            <td>@item.Address</td>
-                            <td>@item.QuestDateStart.ToShortDateString()</td>
-                            <td>@item.QuestDateEnd.ToShortDateString()</td>
-                            <td>@item.CurrentOccupiedSlots / @item.SlotLimit</td>
-                            <td width="260px;">
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Usuń</a>
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.City</td>
+                        <td>@item.Address</td>
+                        <td>@item.QuestDateStart.ToShortDateString()</td>
+                        <td>@item.QuestDateEnd.ToShortDateString()</td>
+                        <td>@item.CurrentOccupiedSlots / @item.SlotLimit</td>
+                        <td width="260px;">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edytuj</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Usuń</a>
+                        </td>
+                    </tr>
                 }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
 </div>

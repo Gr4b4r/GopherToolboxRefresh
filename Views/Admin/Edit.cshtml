@@ -4,47 +4,28 @@
 	ViewData["Title"] = "Edytuj Quest";
 }
 
-@section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
-	<script>
-		document.querySelector('form').addEventListener('submit', function (event) {
-			var startDate = new Date(document.querySelector('[name="QuestDateStart"]').value);
-			var endDate = new Date(document.querySelector('[name="QuestDateEnd"]').value);
-			if (endDate < startDate) {
-				event.preventDefault();
-				alert('The end date must be later than the start date.');
-			}
-		});
+<h1>Edytuj Quest</h1>
 
-		function UpdateDynamicHeader() {
-			let x = document.getElementById("DynamicHeaderValue");
-			DynamicHeader.innerHTML = "Edycja: " + x.value
-		}
-	</script>
+@if (!ViewData.ModelState.IsValid)
+{
+	<div class="alert alert-danger">
+		<ul>
+			@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+			{
+				<li>@error.ErrorMessage</li>
+			}
+		</ul>
+	</div>
 }
 
 <div class="card">
-	<div class="card-body adminSets">
-		<h2 class="card-title" id="DynamicHeader">Edycja: @Model.Name</h2>
-		@if (!ViewData.ModelState.IsValid)
-		{
-			<div class="alert alert-danger">
-				<ul>
-					@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-					{
-						<li>@error.ErrorMessage</li>
-					}
-				</ul>
-			</div>
-		}
-		<h2 class="card-title"></h2>
+	<div class="card-body">
+		<h4 class="card-title">Quest</h4>
 		<hr />
 		<form asp-action="Edit">
 			<div class="form-group">
 				<label asp-for="Name" class="control-label">Nazwa</label>
-				<input asp-for="Name" class="form-control" oninput="UpdateDynamicHeader()" id="DynamicHeaderValue" />
+				<input asp-for="Name" class="form-control" />
 				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
 			<div class="form-group">
@@ -91,3 +72,20 @@
 		</form>
 	</div>
 </div>
+
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		document.querySelector('form').addEventListener('submit', function (event) {
+			var startDate = new Date(document.querySelector('[name="QuestDateStart"]').value);
+			var endDate = new Date(document.querySelector('[name="QuestDateEnd"]').value);
+			if (endDate < startDate) {
+				event.preventDefault();
+				alert('The end date must be later than the start date.');
+			}
+		});
+	</script>
+}

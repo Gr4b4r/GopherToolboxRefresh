@@ -5,52 +5,45 @@
 	ViewData["Title"] = "Zarządzanie użytkownikami";
 }
 
-
-<div class="card">
-	<div class="card-body adminSets">
-		<h2 class="card-title">Zarządzanie użytkownikami</h2>
-		<a asp-action="RegisterUser" class="btn btn-primary createButton">Zarejestruj użytkownika</a>
-		<table class="table">
-			<thead>
+<h1>Zarządzanie użytkownikami</h1>
+<a asp-action="RegisterUser" class="btn btn-primary" style="margin-top: 10px;">Zarejestruj użytkownika</a>
+<div class="card adminSets">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id użytkownika</th>
+				<th>Imię</th>
+				<th>Ksywka</th>
+				<th>Nazwisko</th>
+				<th>Data ur.</th>
+				<th>Email</th>
+				<th>Telefon</th>
+				<th>Rola</th>
+				<th>Akcje</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in Model)
+			{
 				<tr>
-					<th>Id użytkownika</th>
-					<th>Imię</th>
-					<th>Ksywka</th>
-					<th>Nazwisko</th>
-					<th>Data ur.</th>
-					<th>Email</th>
-					<th>Telefon</th>
-					<th>Rola</th>
-					<th>Akcje</th>
+					<td>@user.Id</td>
+					<td>@user.Name</td>
+					<td>@user.Nickname</td>
+					<td>@user.Surname</td>
+					<td>@user.Birthdate.ToShortDateString()</td>
+					<td>@user.Email</td>
+					<td>@user.Phone</td>
+					<td>@user.Rola</td>
+					<td width="260px;">
+						<a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-warning">Edytuj</a>
+						<a asp-action="UserDetails" asp-route-id="@user.Id" class="btn btn-primary">Szczegóły</a>
+						@if (user.Email != "admin@admin.pl")
+						{
+							<a asp-action="RemoveUser" asp-route-id="@user.Id" class="btn btn-danger">Usuń</a>
+						}
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				@foreach (var user in Model)
-				{
-					<tr>
-						<td>@user.Id</td>
-						<td>@user.Name</td>
-						<td>@user.Nickname</td>
-						<td>@user.Surname</td>
-						<td>@user.Birthdate.ToShortDateString()</td>
-						<td>@user.Email</td>
-						<td>@user.Phone</td>
-						<td>@user.Rola</td>
-						<td width="260px;">
-							@if (user.Email != "admin@admin.pl")
-							{
-								<a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-warning">Edytuj</a>
-								<a asp-action="UserDetails" asp-route-id="@user.Id" class="btn btn-primary">Szczegóły</a>
-								<a asp-action="RemoveUser" asp-route-id="@user.Id" class="btn btn-danger">Usuń</a>
-							}
-							else
-							{
-								<a asp-action="UserDetails" asp-route-id="@user.Id" class="btn btn-primary">Szczegóły</a>
-							}
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
+			}
+		</tbody>
+	</table>
 </div>
