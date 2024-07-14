@@ -4,35 +4,51 @@
 	ViewData["Title"] = "Lista Questów";
 }
 
-<h1>Lista Questów</h1>
-<form asp-controller="Quest" asp-action="Index">
-	<p class="szukajka_box">
-		<input placeholder="Wyszukaj Quest:" class="szukajka" type="text" name="SearchString" />
-		<input class="btn btn-primary" type="submit" value="Wyszukaj!" />
-	</p>
-</form>
-<div class="row">
-	@foreach (var item in Model)
-	{
-		@if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
+<div class="card" style="margin-bottom: 20px">
+	<div class="card-body adminSets">
+		<h2 class="card-title">Lista Questów</h2>
+		<form asp-controller="Quest" asp-action="Index">
+			<p class="szukajka_box">
+				<input placeholder="Wyszukaj Quest" class="szukajka" type="text" name="SearchString" />
+				<input class="btn btn-primary" type="submit" value="Wyszukaj!" />
+			</p>
+		</form>
+	</div>
+</div>
+
+@if (!Model.Any())
+{
+	<div class="card" style="margin-bottom: 20px; align-items: center; text-align: center;">
+		<div class="card-body adminSets">
+			<p>Nie masz żadnych podjętych Questów.</p>
+			<a asp-action="Index" class="btn btn-primary">Powrót</a>
+		</div>
+	</div>
+}
+else
+{
+	<div class="row">
+		@foreach (var item in Model)
 		{
-			<div class="col-md-4">
-				<div class="card mb-4">
-					<img class="card-img-top" src="@Url.Content(item.ImageUrl)" alt="@item.Name">
-					<div class="card-body">
-						<h4 class="card-title">@item.Name</h4>
-						<p class="card-text">
-							<strong>Miasto:</strong> @item.City<br>
-							<strong>Adres:</strong> @item.Address<br>
-							<strong>Data rozpoczęcia zadania:</strong> @item.QuestDateStart.ToShortDateString()<br>
-							<strong>Data zakończenia zadania:</strong> @item.QuestDateEnd.ToShortDateString()<br>
-							<strong>Ilość zajętych miejsc:</strong> @item.CurrentOccupiedSlots / @item.SlotLimit<br>
-						</p>
-						<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
+			@if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
+			{
+				<div class="col-md-4">
+					<div class="card mb-4">
+						<img class="card-img-top" src="@Url.Content(item.ImageUrl)" alt="@item.Name">
+						<div class="card-body">
+							<h4 class="card-title">@item.Name</h4>
+							<p class="card-text">
+								<strong>Miasto:</strong> @item.City<br>
+								<strong>Adres:</strong> @item.Address<br>
+								<strong>Data rozpoczęcia zadania:</strong> @item.QuestDateStart.ToShortDateString()<br>
+								<strong>Data zakończenia zadania:</strong> @item.QuestDateEnd.ToShortDateString()<br>
+								<strong>Ilość zajętych miejsc:</strong> @item.CurrentOccupiedSlots / @item.SlotLimit<br>
+							</p>
+							<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Szczegóły</a>
+						</div>
 					</div>
 				</div>
-			</div>
+			}
 		}
-		
-	}
-</div>
+	</div>
+}

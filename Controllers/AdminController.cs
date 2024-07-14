@@ -283,6 +283,11 @@ namespace GopherToolboxRefresh.Controllers
 			{
 				return NotFound();
 			}
+			var globalAdmin = await _userManager.FindByEmailAsync("admin@admin.pl");
+			if (user == globalAdmin)
+			{
+				return RedirectToAction(nameof(UserManagement));
+			}
 
 			var model = new EditUserViewModel
 			{
@@ -308,10 +313,16 @@ namespace GopherToolboxRefresh.Controllers
 				return View(model);
 			}
 
+
 			var user = await _userManager.FindByIdAsync(model.Id);
 			if (user == null)
 			{
 				return NotFound();
+			}
+			var globalAdmin = await _userManager.FindByEmailAsync("admin@admin.pl");
+			if (user == globalAdmin)
+			{
+				return RedirectToAction(nameof(UserManagement));
 			}
 
 			user.Email = model.Email;

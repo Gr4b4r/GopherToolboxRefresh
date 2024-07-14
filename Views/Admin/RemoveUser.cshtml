@@ -4,21 +4,24 @@
 	ViewData["Title"] = "Czy chcesz usunąć użytkownika?";
 }
 
-<h1>Czy chcesz usunąć użytkownika?</h1>
-<div class="card adminSets">
-    <div>
-		<div class="quest-info card-text">
-			<p><strong>Imię:</strong> @Model.Name</p>
-			<p><strong>Nazwisko:</strong> @Model.Surname</p>
-			<p><strong>Ksywka:</strong> @Model.Nickname<br></p>
-			<p><strong>Data urodzenia:</strong> @Model.Birthdate.ToShortDateString()<br></p>
-			<p><strong>Email:</strong> @Model.Email<br></p>
-			<p><strong>Telefon kontaktowy:</strong> @Model.Phone<br></p>
+<div class="card">
+	<div class="card-body adminSets">
+		<h2 class="card-title">Czy chcesz usunąć użytkownika @Model.Email?</h2>
+		<div class="quest-details">
+			<div class="quest-info card-text">
+				<p><strong>Imię:</strong> @Model.Name</p>
+				<p><strong>Nazwisko:</strong> @Model.Surname</p>
+				<p><strong>Ksywka:</strong> @Model.Nickname<br></p>
+				<p><strong>Data urodzenia:</strong> @Model.Birthdate.ToShortDateString()<br></p>
+				<p><strong>Email:</strong> @Model.Email<br></p>
+				<p><strong>Telefon kontaktowy:</strong> @Model.Phone<br></p>
+				<hr />
+				<form asp-action="RemoveUser">
+					<input type="hidden" asp-for="Id" />
+					<input type="submit" value="Usuń" class="btn btn-danger" />
+					<a asp-action="UserManagement" class="btn btn-secondary">Powrót do listy</a>
+				</form>
+			</div>
 		</div>
-        <form asp-action="RemoveUser">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Usuń" class="btn btn-danger" />
-            <a asp-action="UserManagement" class="btn btn-secondary">Powrót do listy</a>
-        </form>
     </div>
 </div>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class LastUpdate : Migration
+    public partial class UIunification : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

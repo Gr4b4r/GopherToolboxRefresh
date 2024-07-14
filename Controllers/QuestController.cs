@@ -103,7 +103,7 @@ namespace GopherToolboxRefresh.Controllers
 			return RedirectToAction(nameof(MyQuests));
 		}
 
-		public async Task<IActionResult> MyQuests()
+		public async Task<IActionResult> MyQuests(string searchString)
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null)
@@ -111,12 +111,17 @@ namespace GopherToolboxRefresh.Controllers
 				return Unauthorized();
 			}
 
-			var orders = await _context.Orders
+			var orders = _context.Orders
 				.Include(o => o.Quest)
-				.Where(o => o.UserId == user.Id)
-				.ToListAsync();
+				.Where(o => o.UserId == user.Id);
 
-			return View(orders);
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				orders = orders.Where(o => o.Quest.Name.Contains(searchString));
+			}
+
+			var quest = await orders.ToListAsync();
+			return View(quest);
 		}
 
 		[HttpPost]
@@ -150,92 +155,3 @@ namespace GopherToolboxRefresh.Controllers
 		}
 	}
 }
-
-//Pozostałości kodu, do sprawdzenia czy w tym miejscu będzie jakolwiek potrzebne
-//Wstępnie nie widać problemów z funkcjonowaniem bez tej częsci
-
-/*      [HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(Quest quest)
-		{
-			if (ModelState.IsValid)
-			{
-				try
-				{
-					_context.Add(quest);
-					await _context.SaveChangesAsync();
-					return RedirectToAction(nameof(Index));
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine("Error saving quest: " + ex.Message);
-					ModelState.AddModelError("", "Error saving quest");
-				}
-			}
-			else
-			{
-				// Logowanie błędów walidacji
-				foreach (var modelState in ModelState.Values)
-				{
-					foreach (var error in modelState.Errors)
-					{
-						Console.WriteLine(error.ErrorMessage);
-					}
-				}
-			}
-			return View(quest);
-		}
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, Quest quest)
-		{
-			if (id != quest.Id)
-			{
-				return NotFound();
-			}
-
-			if (ModelState.IsValid)
-			{
-				try
-				{
-					_context.Update(quest);
-					await _context.SaveChangesAsync();
-					return RedirectToAction(nameof(Index));
-				}
-				catch (DbUpdateConcurrencyException)
-				{
-					if (!QuestExists(quest.Id))
-					{
-						return NotFound();
-					}
-					else
-					{
-						throw;
-					}
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine("Error saving quest: " + ex.Message);
-					ModelState.AddModelError("", "Error saving quest");
-				}
-			}
-			else
-			{
-				// Logowanie błędów walidacji
-				foreach (var modelState in ModelState.Values)
-				{
-					foreach (var error in modelState.Errors)
-					{
-						Console.WriteLine(error.ErrorMessage);
-					}
-				}
-			}
-			return View(quest);
-		}
-
-		private bool QuestExists(int id)
-		{
-			return _context.Quests.Any(e => e.Id == id);
-		}
-	}*/

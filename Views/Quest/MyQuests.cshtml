@@ -4,11 +4,26 @@
 	ViewData["Title"] = "Moje Questy";
 }
 
-<h1>Moje Questy</h1>
+<div class="card" style="margin-bottom: 20px">
+	<div class="card-body adminSets">
+		<h2 class="card-title">Moje Questy</h2>
+		<form asp-controller="Quest" asp-action="MyQuests">
+			<p class="szukajka_box">
+				<input placeholder="Wyszukaj Quest" class="szukajka" type="text" name="SearchString" />
+				<input class="btn btn-primary" type="submit" value="Wyszukaj!" />
+			</p>
+		</form>
+	</div>
+</div>
 
 @if (!Model.Any())
 {
-	<p>Nie masz żadnych podjętych Questów.</p>
+	<div class="card" style="margin-bottom: 20px; align-items: center; text-align: center;">
+		<div class="card-body adminSets">
+			<p>Nie masz żadnych podjętych Questów.</p>
+			<a asp-action="Index" class="btn btn-primary">Powrót</a>
+		</div>
+	</div>
 }
 else
 {

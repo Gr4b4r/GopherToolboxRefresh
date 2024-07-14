@@ -4,28 +4,45 @@
     ViewData["Title"] = "Dodaj Quest";
 }
 
-<h1>Dodaj Quest</h1>
-
-@if (!ViewData.ModelState.IsValid)
-{
-        <div class="alert alert-danger">
-            <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            var startDate = new Date(document.querySelector('[name="QuestDateStart"]').value);
+            var endDate = new Date(document.querySelector('[name="QuestDateEnd"]').value);
+            if (endDate < startDate) {
+                event.preventDefault();
+                alert('Data zakończenia eventu musi być później jak data rozpoczęcia.');
             }
-            </ul>
-        </div>
+        });
+        function UpdateDynamicHeader() {
+            let x = document.getElementById("DynamicHeaderValue");
+            DynamicHeader.innerHTML = "Dodawanie: " + x.value
+        }
+    </script>
 }
 
-<div class="card adminSets">
-    <div class="card-body">
-        <h4 class="card-title">Quest</h4>
+<div class="card">
+    <div class="card-body adminSets">
+        <h2 lass="card-title" id="DynamicHeader">Dodawanie: </h2>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
         <hr />
         <form asp-action="Create" method="post">
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Nazwa</label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" oninput="UpdateDynamicHeader()" id="DynamicHeaderValue" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -65,29 +82,11 @@
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Dodaj" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
             </div>
         </form>
     </div>
 </div>
-
-<div class="mt-3">
-    <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-    <script>
-        document.querySelector('form').addEventListener('submit', function (event) {
-            var startDate = new Date(document.querySelector('[name="QuestDateStart"]').value);
-            var endDate = new Date(document.querySelector('[name="QuestDateEnd"]').value);
-            if (endDate < startDate) {
-                event.preventDefault();
-                alert('Data zakończenia eventu musi być później jak data rozpoczęcia.');
-            }
-        });
-    </script>
-}

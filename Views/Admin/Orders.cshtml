@@ -4,58 +4,61 @@
 	ViewData["Title"] = "Zarządzanie podjętymi zadaniami";
 }
 
-<h1>Zarządzanie podjętymi zadaniami</h1>
 
-@if (!Model.Any())
-{
-	<p>Brak podjętych zadań.</p>
-}
-else
-{
-	<div class="card adminSets">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Nazwa Questa</th>
-					<th>Użytkownik</th>
-					<th>Miejsce</th>
-					<th>Data podjęcia</th>
-					<th>Status</th>
-				</tr>
-			</thead>
-			<tbody>
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>@item.Quest.Name</td>
-					<td>@item.User?.Email</td>
-					<td>@item.Quest.Address</td>
-					<td>@item.OrderDate.ToShortDateString()</td>
-					@if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
+<div class="card">
+	<div class="card-body adminSets">
+		<h2 class="card-title">Zarządzanie podjętymi zadaniami</h2>
+
+		@if (!Model.Any())
+		{
+			<p>Brak podjętych zadań.</p>
+		}
+		else
+		{
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nazwa Questa</th>
+						<th>Użytkownik</th>
+						<th>Miejsce</th>
+						<th>Data podjęcia</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
 					{
-						@if (item.CancellationRequested)
-						{
-							@if (item.IsCanceled)
+						<tr>
+							<td>@item.Quest.Name</td>
+							<td>@item.User?.Email</td>
+							<td>@item.Quest.Address</td>
+							<td>@item.OrderDate.ToShortDateString()</td>
+							@if (item.QuestDateEnd >= DateTime.Now.AddMinutes(-1))
 							{
-								<td class="text-danger">Anulowane</td>
+								@if (item.CancellationRequested)
+								{
+									@if (item.IsCanceled)
+									{
+										<td class="text-danger">Anulowane</td>
+									}
+									else
+									{
+										<td class="text-warning">Wysłana prośba o anulowanie</td>
+									}
+								}
+								else
+								{
+									<td class="text-success">Przyjęte zgłoszenie</td>
+								}
 							}
 							else
 							{
-								<td class="text-warning">Wysłana prośba o anulowanie</td>
+								<td class="text-success">Quest zakończony</td>
 							}
-						}
-						else
-						{
-							<td class="text-success">Przyjęte zgłoszenie</td>
-							}
-						}
-					else
-					{
-						<td class="text-success">Quest zakończony</td>
+						</tr>
 					}
-				</tr>
-			}
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		}
 	</div>
-}
+</div>

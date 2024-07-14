@@ -29,6 +29,18 @@ public class HomeController : Controller
             return View();
         }
 	}
+	
+	public IActionResult PrivatePolicy()
+	{
+		if (_signInManager.IsSignedIn(User))
+		{
+            return RedirectToAction("Index", "Quest");
+        }
+		else
+		{
+            return View();
+        }
+	}
 
 	public IActionResult Error()
 	{

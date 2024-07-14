@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Projekt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240713215217_LastUpdate")]
-    partial class LastUpdate
+    [Migration("20240714144203_UIunification")]
+    partial class UIunification
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

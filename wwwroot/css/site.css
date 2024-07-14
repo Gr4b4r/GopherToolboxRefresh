@@ -1,6 +1,7 @@
 html {
 	font-size: 14px;
 	font-family: 'Georgia', serif;
+	overflow-y: scroll;
 }
 
 @media (min-width: 768px) {
@@ -157,7 +158,6 @@ body {
 
 ::-webkit-scrollbar-track {
 	background-color: none;
-	z-index: 0;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -198,4 +198,9 @@ body {
 	width:80%;
 	margin-left:10%;
 	margin-right:10%;
+}
+
+.createButton {
+	max-width: 200px; 
+	margin-bottom: 10px;
 }
